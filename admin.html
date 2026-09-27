@@ -7,6 +7,10 @@
     <title>Admin Login</title>
 
     <style>
+        /* ========================================
+           RESET
+        ======================================== */
+
         * {
             margin: 0;
             padding: 0;
@@ -16,230 +20,548 @@
         html,
         body {
             width: 100%;
-            height: 100%;
+            min-height: 100%;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
             background: #071426;
-            color: #ffffff;
+
+            color: #111827;
+
+            min-height: 100vh;
 
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
-            overflow: hidden;
+            padding: 25px;
+
+            overflow-x: hidden;
         }
 
-        /* Background */
+
+        /* ========================================
+           BACKGROUND
+        ======================================== */
 
         .background {
             position: fixed;
+
             inset: 0;
 
             background:
                 radial-gradient(
-                    circle at 20% 20%,
-                    rgba(255, 115, 0, 0.12),
+                    circle at 15% 20%,
+                    rgba(255, 115, 0, 0.18),
                     transparent 30%
                 ),
+
                 radial-gradient(
-                    circle at 80% 80%,
-                    rgba(0, 91, 170, 0.18),
+                    circle at 85% 80%,
+                    rgba(24, 73, 130, 0.35),
                     transparent 35%
+                ),
+
+                #071426;
+
+            z-index: -2;
+        }
+
+
+        .background::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.025),
+                    transparent 40%
                 );
+
+            z-index: -1;
+        }
+
+
+        /* ========================================
+           LOGIN WRAPPER
+        ======================================== */
+
+        .login-wrapper {
+            width: 100%;
+
+            max-width: 470px;
+
+            animation: pageAppear 0.8s ease-out;
+        }
+
+
+        /* ========================================
+           LOGIN CARD
+        ======================================== */
+
+        .login-card {
+            position: relative;
+
+            width: 100%;
+
+            background: #ffffff;
+
+            border-radius: 32px;
+
+            padding: 42px 38px 38px;
+
+            box-shadow:
+                0 35px 80px rgba(0, 0, 0, 0.45);
+
+            overflow: visible;
+        }
+
+
+        /* ========================================
+           LOGO
+        ======================================== */
+
+        .logo-circle {
+            position: absolute;
+
+            width: 76px;
+            height: 76px;
+
+            top: -38px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.18);
+
+            border: 1px solid #eeeeee;
+
+            z-index: 5;
+        }
+
+
+        .logo-circle span {
+            width: 52px;
+            height: 52px;
+
+            border-radius: 16px;
+
+            background: #0b2039;
+
+            color: #ff7300;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+        }
+
+
+        /* ========================================
+           HEADING
+        ======================================== */
+
+        .heading {
+            text-align: center;
+
+            margin-top: 12px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .heading h1 {
+            font-size: 30px;
+
+            line-height: 1.2;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            letter-spacing: -0.8px;
+        }
+
+
+        .heading p {
+            margin-top: 12px;
+
+            color: #9aa1ad;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
+            padding: 0 10px;
+        }
+
+
+        /* ========================================
+           FORM
+        ======================================== */
+
+        .login-form {
+            margin-top: 32px;
+        }
+
+
+        .field {
+            margin-bottom: 21px;
+        }
+
+
+        .field label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #252b35;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+
+            width: 100%;
+        }
+
+
+        .input-icon {
+            position: absolute;
+
+            left: 17px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 20px;
+
+            height: 20px;
+
+            color: #a5aab4;
 
             pointer-events: none;
         }
 
-        /* Login container */
 
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-
-            padding: 20px;
-
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Login box */
-
-        .login-box {
-            background: #0b1d33;
-
-            border: 1px solid #173452;
-
-            border-radius: 18px;
-
-            padding: 45px 35px;
-
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.5);
-
-            animation: appear 0.7s ease-out;
-        }
-
-        /* Logo */
-
-        .logo {
-            text-align: center;
-
-            margin-bottom: 10px;
-
-            color: #ff7300;
-
-            font-size: 32px;
-
-            font-weight: 800;
-
-            letter-spacing: 3px;
-        }
-
-        /* Title */
-
-        .title {
-            text-align: center;
-
-            font-size: 22px;
-
-            font-weight: 600;
-
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-
-            color: #8092a8;
-
-            font-size: 14px;
-
-            margin-bottom: 35px;
-        }
-
-        /* Input groups */
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-
-            margin-bottom: 8px;
-
-            color: #b8c5d3;
-
-            font-size: 14px;
-
-            font-weight: 600;
-        }
-
-        .input-group input {
+        .input-wrapper input {
             width: 100%;
 
-            height: 52px;
+            height: 58px;
 
-            padding: 0 16px;
-
-            border: 1px solid #28445f;
-
-            border-radius: 10px;
+            border: none;
 
             outline: none;
 
-            background: #071426;
+            border-radius: 16px;
 
-            color: #ffffff;
+            background: #f4f5f7;
+
+            color: #151922;
 
             font-size: 16px;
 
-            transition: 0.25s ease;
+            padding:
+                0 48px
+                0 50px;
+
+            transition:
+                background 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
-        .input-group input::placeholder {
-            color: #52677d;
+
+        .input-wrapper input::placeholder {
+            color: #a9adb6;
         }
 
-        .input-group input:focus {
-            border-color: #ff7300;
+
+        .input-wrapper input:focus {
+            background: #f0f2f5;
 
             box-shadow:
-                0 0 0 3px rgba(255, 115, 0, 0.12);
+                0 0 0 2px rgba(255, 115, 0, 0.2);
         }
 
-        /* Login button */
+
+        /* ========================================
+           PASSWORD TOGGLE
+        ======================================== */
+
+        .password-toggle {
+            position: absolute;
+
+            right: 17px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #a5aab4;
+
+            cursor: pointer;
+
+            padding: 5px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .password-toggle:hover {
+            color: #536071;
+        }
+
+
+        /* ========================================
+           FORGOT PASSWORD
+        ======================================== */
+
+        .forgot {
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: -5px;
+
+            margin-bottom: 23px;
+        }
+
+
+        .forgot button {
+            border: none;
+
+            background: transparent;
+
+            color: #252b35;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .forgot button:hover {
+            color: #ff7300;
+        }
+
+
+        /* ========================================
+           LOGIN BUTTON
+        ======================================== */
 
         .login-button {
             width: 100%;
 
-            height: 52px;
-
-            margin-top: 10px;
+            height: 58px;
 
             border: none;
 
-            border-radius: 10px;
+            border-radius: 17px;
 
-            background: #ff7300;
+            background: #0d0b14;
 
             color: #ffffff;
 
             font-size: 16px;
 
-            font-weight: 700;
+            font-weight: 600;
+
+            letter-spacing: 0.1px;
 
             cursor: pointer;
 
-            transition: 0.25s ease;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
         }
 
+
         .login-button:hover {
-            background: #ff841f;
+            background: #15121e;
 
             transform: translateY(-1px);
 
             box-shadow:
-                0 8px 25px rgba(255, 115, 0, 0.25);
+                0 10px 25px rgba(13, 11, 20, 0.18);
         }
+
 
         .login-button:active {
             transform: translateY(0);
         }
 
-        /* Error message */
 
-        .error {
+        .login-button.loading {
+            pointer-events: none;
+
+            opacity: 0.75;
+        }
+
+
+        /* ========================================
+           DIVIDER
+        ======================================== */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin: 27px 0;
+        }
+
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            height: 1px;
+
+            background: #eceef1;
+
+            flex: 1;
+        }
+
+
+        .divider span {
+            color: #a6abb4;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        /* ========================================
+           SECURITY MESSAGE
+        ======================================== */
+
+        .security {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            color: #9ca2ad;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            text-align: center;
+        }
+
+
+        .security-icon {
+            color: #ff7300;
+
+            flex-shrink: 0;
+        }
+
+
+        /* ========================================
+           ERROR
+        ======================================== */
+
+        .error-message {
             display: none;
 
             margin-top: 15px;
 
-            padding: 12px;
+            padding: 13px 15px;
 
-            border-radius: 8px;
+            border-radius: 12px;
 
-            background: rgba(220, 50, 50, 0.1);
+            background: #fff1f1;
 
-            border: 1px solid rgba(220, 50, 50, 0.25);
+            color: #c73c3c;
 
-            color: #ff7777;
+            font-size: 13px;
 
             text-align: center;
 
-            font-size: 14px;
+            border: 1px solid #ffd9d9;
         }
 
-        /* Animation */
 
-        @keyframes appear {
+        .error-message.show {
+            display: block;
+
+            animation: errorAppear 0.25s ease;
+        }
+
+
+        /* ========================================
+           ANIMATIONS
+        ======================================== */
+
+        @keyframes pageAppear {
+
             from {
                 opacity: 0;
 
                 transform:
                     translateY(25px)
-                    scale(0.97);
+                    scale(0.98);
             }
 
             to {
@@ -249,156 +571,90 @@
                     translateY(0)
                     scale(1);
             }
+
         }
 
-        /* Mobile */
 
-        @media (max-width: 500px) {
+        @keyframes errorAppear {
 
-            .login-container {
-                padding: 15px;
+            from {
+                opacity: 0;
+
+                transform: translateY(-5px);
             }
 
-            .login-box {
-                padding: 35px 25px;
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
             }
 
-            .logo {
-                font-size: 28px;
+        }
+
+
+        /* ========================================
+           MOBILE
+        ======================================== */
+
+        @media (max-width: 520px) {
+
+            body {
+                padding: 20px 15px;
             }
+
+
+            .login-card {
+                border-radius: 28px;
+
+                padding:
+                    38px
+                    23px
+                    30px;
+            }
+
+
+            .heading h1 {
+                font-size: 27px;
+            }
+
+
+            .heading p {
+                font-size: 14px;
+            }
+
+
+            .logo-circle {
+                width: 70px;
+                height: 70px;
+
+                top: -35px;
+            }
+
+
+            .logo-circle span {
+                width: 48px;
+                height: 48px;
+
+                font-size: 19px;
+            }
+
         }
     </style>
 </head>
+
 
 <body>
 
     <div class="background"></div>
 
-    <div class="login-container">
 
-        <div class="login-box">
+    <main class="login-wrapper">
 
-            <div class="logo">
-                ADMIN
-            </div>
-
-            <div class="title">
-                Admin Panel
-            </div>
-
-            <div class="subtitle">
-                Sign in to continue
-            </div>
+        <section class="login-card">
 
 
-            <!-- Username -->
+            <!-- =================================
+                 LOGO
+            ================================= -->
 
-            <div class="input-group">
-
-                <label for="username">
-                    Username
-                </label>
-
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="Enter your username"
-                    autocomplete="username"
-                >
-
-            </div>
-
-
-            <!-- Password -->
-
-            <div class="input-group">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                >
-
-            </div>
-
-
-            <!-- Login -->
-
-            <button
-                class="login-button"
-                id="loginButton"
-                type="button"
-            >
-                Login
-            </button>
-
-
-            <!-- Error -->
-
-            <div
-                class="error"
-                id="errorMessage"
-            >
-                Please enter your username and password.
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <script>
-
-        const username = document.getElementById("username");
-        const password = document.getElementById("password");
-        const loginButton = document.getElementById("loginButton");
-        const errorMessage = document.getElementById("errorMessage");
-
-
-        loginButton.addEventListener("click", function () {
-
-            const usernameValue = username.value.trim();
-            const passwordValue = password.value.trim();
-
-
-            if (usernameValue === "" || passwordValue === "") {
-
-                errorMessage.textContent =
-                    "Please enter your username and password.";
-
-                errorMessage.style.display = "block";
-
-                return;
-            }
-
-
-            errorMessage.style.display = "none";
-
-
-            /*
-                FIREBASE LOGIN WILL BE CONNECTED HERE
-                IN THE NEXT STEP.
-            */
-
-            console.log("Login button clicked");
-
-        });
-
-
-        password.addEventListener("keydown", function (event) {
-
-            if (event.key === "Enter") {
-                loginButton.click();
-            }
-
-        });
-
-    </script>
-
-</body>
-</html>
+            <
