@@ -36,6 +36,11 @@
             -webkit-font-smoothing: antialiased;
         }
 
+
+        /* ==============================
+           APP
+        ============================== */
+
         .app {
             width: 100%;
             max-width: 620px;
@@ -56,20 +61,28 @@
 
         .top-banner {
             width: 100%;
-            height: 85px;
+            height: 75px;
 
             background: #f7f7f7;
         }
 
 
         /* ==============================
-           NAVIGATION
+           FOUR CIRCULAR NAV BUTTONS
         ============================== */
 
         .category-nav {
-            height: 96px;
+            width: 100%;
+
+            height: 105px;
 
             display: flex;
+
+            align-items: center;
+
+            justify-content: space-around;
+
+            padding: 8px 18px 12px;
 
             background: #ffffff;
 
@@ -79,10 +92,11 @@
                 0 3px 12px rgba(0, 0, 0, 0.05);
         }
 
+
         .category {
             position: relative;
 
-            width: 33.333%;
+            width: 25%;
 
             display: flex;
 
@@ -92,55 +106,70 @@
 
             justify-content: center;
 
-            gap: 3px;
+            gap: 5px;
 
             color: #777777;
 
             cursor: pointer;
 
-            transition: color 0.2s ease;
+            transition: 0.25s ease;
         }
 
-        .category-icon {
-            font-size: 30px;
 
-            height: 36px;
+        /* Circular icon */
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: #f3f3f3;
 
             display: flex;
 
             align-items: center;
-
             justify-content: center;
+
+            font-size: 23px;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
         }
+
 
         .category-name {
-            font-size: 16px;
+            font-size: 13px;
 
             line-height: 1.1;
+
+            font-weight: 500;
         }
+
+
+        /* Active circular button */
 
         .category.active {
             color: #171717;
         }
 
-        .category.active::after {
-            content: "";
 
-            position: absolute;
+        .category.active .category-icon {
+            background: #171717;
 
-            bottom: 0;
+            color: #ffffff;
 
-            left: 50%;
+            transform: translateY(-2px);
 
-            transform: translateX(-50%);
+            box-shadow:
+                0 6px 15px rgba(0, 0, 0, 0.15);
+        }
 
-            width: 38px;
 
-            height: 3px;
-
-            background: #222222;
-
-            border-radius: 10px 10px 0 0;
+        .category:active .category-icon {
+            transform: scale(0.94);
         }
 
 
@@ -151,15 +180,15 @@
         .new-badge {
             position: absolute;
 
-            top: 8px;
+            top: 2px;
 
-            right: 20px;
+            right: calc(50% - 35px);
 
             background: #ff3867;
 
             color: #ffffff;
 
-            font-size: 9px;
+            font-size: 8px;
 
             font-weight: 700;
 
@@ -168,6 +197,8 @@
             border-radius: 6px;
 
             line-height: 1;
+
+            z-index: 2;
         }
 
 
@@ -178,6 +209,7 @@
         .content {
             padding: 22px 18px 35px;
         }
+
 
         .page-title {
             font-size: 27px;
@@ -191,6 +223,7 @@
             margin-bottom: 4px;
         }
 
+
         .page-subtitle {
             font-size: 16px;
 
@@ -203,7 +236,7 @@
 
 
         /* ==============================
-           CARD
+           EXPERIENCE CARD
         ============================== */
 
         .experience-card {
@@ -245,6 +278,7 @@
             transition:
                 transform 0.5s ease;
         }
+
 
         .experience-card:hover
         .experience-image {
@@ -334,6 +368,7 @@
             font-weight: 700;
         }
 
+
         .popular span {
             margin-right: 3px;
         }
@@ -406,6 +441,7 @@
             gap: 10px;
         }
 
+
         .details {
             display: flex;
 
@@ -420,22 +456,21 @@
             white-space: nowrap;
         }
 
+
         .star {
             color: #ffd21c;
 
             font-size: 16px;
         }
 
+
         .rating {
             font-weight: 700;
         }
 
+
         .dot-separator {
             opacity: 0.65;
-        }
-
-        .duration {
-            opacity: 0.95;
         }
 
 
@@ -462,6 +497,7 @@
                 0 4px 14px rgba(0, 0, 0, 0.12);
         }
 
+
         .price span {
             font-size: 12px;
 
@@ -487,6 +523,7 @@
             margin-top: 4px;
         }
 
+
         .dot {
             width: 7px;
             height: 7px;
@@ -495,6 +532,7 @@
 
             background: #d8d8d8;
         }
+
 
         .dot.active {
             width: 28px;
@@ -506,32 +544,47 @@
 
 
         /* ==============================
-           SMALL MOBILE
+           SMALL PHONES
         ============================== */
 
         @media (max-width: 400px) {
 
             .top-banner {
-                height: 75px;
+                height: 70px;
             }
+
 
             .category-nav {
-                height: 88px;
+                height: 98px;
+
+                padding:
+                    6px
+                    10px
+                    10px;
             }
+
 
             .category-icon {
-                font-size: 27px;
-                height: 32px;
+                width: 44px;
+                height: 44px;
+
+                font-size: 21px;
             }
+
 
             .category-name {
-                font-size: 15px;
+                font-size: 12px;
             }
 
+
             .new-badge {
-                right: 12px;
-                top: 6px;
+                right: calc(50% - 31px);
+
+                top: 1px;
+
+                font-size: 7px;
             }
+
 
             .content {
                 padding:
@@ -540,58 +593,80 @@
                     30px;
             }
 
+
             .page-title {
                 font-size: 25px;
             }
 
+
             .page-subtitle {
                 font-size: 15px;
+
                 margin-bottom: 17px;
             }
 
+
             .experience-card {
                 height: 315px;
+
                 border-radius: 21px;
             }
+
 
             .experience-title {
                 font-size: 20px;
             }
 
+
             .location {
                 font-size: 13px;
+
                 margin-bottom: 14px;
             }
+
 
             .details {
                 font-size: 13px;
             }
 
+
             .price {
                 font-size: 14px;
+
                 padding: 8px 11px;
             }
+
 
             .price span {
                 font-size: 11px;
             }
+
         }
 
     </style>
 </head>
 
+
 <body>
 
     <div class="app">
 
-        <!-- TOP -->
+
+        <!-- ==============================
+             TOP SPACE
+        =============================== -->
 
         <div class="top-banner"></div>
 
 
-        <!-- NAVIGATION -->
+        <!-- ==============================
+             FOUR CIRCULAR BUTTONS
+        =============================== -->
 
         <nav class="category-nav">
+
+
+            <!-- HOME -->
 
             <div class="category">
 
@@ -600,11 +675,13 @@
                 </div>
 
                 <div class="category-name">
-                    Homes
+                    Home
                 </div>
 
             </div>
 
+
+            <!-- EXPERIENCES -->
 
             <div class="category active">
 
@@ -623,6 +700,8 @@
             </div>
 
 
+            <!-- SERVICES -->
+
             <div class="category">
 
                 <div class="new-badge">
@@ -639,10 +718,28 @@
 
             </div>
 
+
+            <!-- FAVORITES -->
+
+            <div class="category">
+
+                <div class="category-icon">
+                    ❤️
+                </div>
+
+                <div class="category-name">
+                    Favorites
+                </div>
+
+            </div>
+
+
         </nav>
 
 
-        <!-- CONTENT -->
+        <!-- ==============================
+             CONTENT
+        =============================== -->
 
         <main class="content">
 
@@ -650,12 +747,15 @@
                 Experiences
             </h1>
 
+
             <p class="page-subtitle">
                 Unforgettable activities led by local hosts
             </p>
 
 
-            <!-- CARD 1 -->
+            <!-- ==========================
+                 CARD 1
+            =========================== -->
 
             <article class="experience-card">
 
@@ -665,14 +765,17 @@
                     alt="Mountain experience"
                 >
 
+
                 <div class="adventure-pill">
                     Adventure
                 </div>
+
 
                 <div class="popular">
                     <span>♨</span>
                     Popular
                 </div>
+
 
                 <div class="card-content">
 
@@ -680,6 +783,7 @@
                         Sunrise volcano hike &
                         breakfast
                     </h2>
+
 
                     <div class="location">
 
@@ -692,6 +796,7 @@
                         </span>
 
                     </div>
+
 
                     <div class="card-bottom">
 
@@ -715,6 +820,7 @@
 
                         </div>
 
+
                         <div class="price">
                             $65<span>/guest</span>
                         </div>
@@ -726,7 +832,9 @@
             </article>
 
 
-            <!-- CARD 2 -->
+            <!-- ==========================
+                 CARD 2
+            =========================== -->
 
             <article class="experience-card">
 
@@ -736,14 +844,17 @@
                     alt="Mountain experience"
                 >
 
+
                 <div class="adventure-pill">
                     Adventure
                 </div>
+
 
                 <div class="popular">
                     <span>♨</span>
                     Popular
                 </div>
+
 
                 <div class="card-content">
 
@@ -751,6 +862,7 @@
                         Sunrise volcano hike &
                         breakfast
                     </h2>
+
 
                     <div class="location">
 
@@ -763,6 +875,7 @@
                         </span>
 
                     </div>
+
 
                     <div class="card-bottom">
 
@@ -786,6 +899,7 @@
 
                         </div>
 
+
                         <div class="price">
                             $65<span>/guest</span>
                         </div>
@@ -797,7 +911,9 @@
             </article>
 
 
-            <!-- DOTS -->
+            <!-- ==========================
+                 DOTS
+            =========================== -->
 
             <div class="dots">
 
@@ -819,6 +935,7 @@
         const categories =
             document.querySelectorAll(".category");
 
+
         categories.forEach(function(category) {
 
             category.addEventListener(
@@ -827,11 +944,17 @@
 
                     categories.forEach(
                         function(item) {
-                            item.classList.remove("active");
+
+                            item.classList.remove(
+                                "active"
+                            );
+
                         }
                     );
 
-                    category.classList.add("active");
+                    category.classList.add(
+                        "active"
+                    );
 
                 }
             );
