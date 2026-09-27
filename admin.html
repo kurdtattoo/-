@@ -1,393 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            background: #071426;
-            font-family: Arial, sans-serif;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 430px;
-
-            background: white;
-
-            border-radius: 30px;
-
-            padding: 55px 35px 35px;
-
-            position: relative;
-
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
-        }
-
-        .logo {
-            position: absolute;
-
-            width: 75px;
-            height: 75px;
-
-            background: white;
-
-            border-radius: 50%;
-
-            top: -37px;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .logo-inner {
-            width: 52px;
-            height: 52px;
-
-            background: #0b2039;
-
-            border-radius: 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            color: #ff7300;
-
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        h1 {
-            text-align: center;
-
-            font-size: 30px;
-
-            color: #151922;
-
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            text-align: center;
-
-            color: #9da3ae;
-
-            font-size: 15px;
-
-            line-height: 1.5;
-
-            margin-bottom: 32px;
-        }
-
-        label {
-            display: block;
-
-            color: #222;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            margin-bottom: 8px;
-        }
-
-        .input-box {
-            position: relative;
-
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-
-            height: 58px;
-
-            border: none;
-
-            outline: none;
-
-            background: #f3f4f6;
-
-            border-radius: 15px;
-
-            padding: 0 18px;
-
-            font-size: 16px;
-
-            color: #111;
-        }
-
-        input:focus {
-            box-shadow: 0 0 0 2px rgba(255, 115, 0, 0.35);
-        }
-
-        input::placeholder {
-            color: #a7abb3;
-        }
-
-        .forgot {
-            text-align: right;
-
-            margin-top: -5px;
-
-            margin-bottom: 22px;
-        }
-
-        .forgot button {
-            border: none;
-
-            background: none;
-
-            color: #222;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .forgot button:hover {
-            color: #ff7300;
-        }
-
-        .login-button {
-            width: 100%;
-
-            height: 58px;
-
-            border: none;
-
-            border-radius: 17px;
-
-            background: #111018;
-
-            color: white;
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-        .login-button:hover {
-            background: #ff7300;
-
-            transform: translateY(-1px);
-        }
-
-        .login-button:active {
-            transform: translateY(0);
-        }
-
-        .message {
-            display: none;
-
-            margin-top: 15px;
-
-            padding: 12px;
-
-            border-radius: 10px;
-
-            background: #fff0f0;
-
-            color: #d33;
-
-            text-align: center;
-
-            font-size: 14px;
-        }
-
-        .bottom {
-            text-align: center;
-
-            margin-top: 28px;
-
-            padding-top: 22px;
-
-            border-top: 1px solid #eeeeee;
-
-            color: #9da3ae;
-
-            font-size: 13px;
-        }
-
-        .orange {
-            color: #ff7300;
-            font-weight: bold;
-        }
-
-        @media (max-width: 500px) {
-            .login-box {
-                padding: 50px 22px 30px;
-                border-radius: 26px;
-            }
-
-            h1 {
-                font-size: 27px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>کوردستان تاتۆ</title>
+
+  <style>
+    @font-face {
+      font-family: "KurdistanTitle";
+      src: url("./fonttitle.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    h1 {
+      font-family: "KurdistanTitle", sans-serif;
+      font-size: 2rem;
+      font-weight: normal;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="login-box">
-
-        <div class="logo">
-            <div class="logo-inner">
-                A
-            </div>
-        </div>
-
-        <h1>Welcome Back!</h1>
-
-        <p class="subtitle">
-            Sign in to access your admin panel
-            and manage your store.
-        </p>
-
-        <form id="loginForm">
-
-            <div class="input-box">
-
-                <label for="username">
-                    Username
-                </label>
-
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="Enter your username"
-                    autocomplete="username"
-                >
-
-            </div>
-
-            <div class="input-box">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                >
-
-            </div>
-
-            <div class="forgot">
-                <button type="button" id="forgotButton">
-                    Forgot Password?
-                </button>
-            </div>
-
-            <button
-                type="submit"
-                class="login-button"
-            >
-                Login
-            </button>
-
-            <div
-                class="message"
-                id="message"
-            ></div>
-
-        </form>
-
-        <div class="bottom">
-            Secure <span class="orange">Administrator</span> Access
-        </div>
-
-    </div>
-
-
-    <script>
-
-        const form = document.getElementById("loginForm");
-
-        const username =
-            document.getElementById("username");
-
-        const password =
-            document.getElementById("password");
-
-        const message =
-            document.getElementById("message");
-
-        const forgotButton =
-            document.getElementById("forgotButton");
-
-
-        form.addEventListener("submit", function(event) {
-
-            event.preventDefault();
-
-            const user =
-                username.value.trim();
-
-            const pass =
-                password.value.trim();
-
-
-            if (user === "" || pass === "") {
-
-                message.textContent =
-                    "Please enter your username and password.";
-
-                message.style.display = "block";
-
-                return;
-            }
-
-
-            message.textContent =
-                "Login system will be connected to Firebase next.";
-
-            message.style.display = "block";
-
-        });
-
-
-        forgotButton.addEventListener("click", function() {
-
-            message.textContent =
-                "Password recovery will be connected to Firebase.";
-
-            message.style.display = "block";
-
-        });
-
-    </script>
+  <header>
+    <h1>کوردستان تاتۆ</h1>
+  </header>
 
 </body>
 </html>
