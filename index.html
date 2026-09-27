@@ -34,8 +34,6 @@
                 sans-serif;
 
             -webkit-font-smoothing: antialiased;
-
-            padding-bottom: 95px;
         }
 
 
@@ -46,7 +44,6 @@
         .app {
             width: 100%;
             max-width: 620px;
-
             min-height: 100vh;
 
             margin: 0 auto;
@@ -58,23 +55,166 @@
 
 
         /* ==============================
-           TOP SPACE
+           SMALL TOP AREA
         ============================== */
 
         .top-banner {
             width: 100%;
-            height: 75px;
+            height: 45px;
 
             background: #f7f7f7;
         }
 
 
         /* ==============================
-           CONTENT
+           CATEGORIES
+           TOP / HEADER
+        ============================== */
+
+        .category-nav {
+            width: 100%;
+
+            height: 92px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-around;
+
+            padding: 4px 12px 7px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #eeeeee;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.05);
+
+            position: relative;
+
+            z-index: 5;
+        }
+
+
+        .category {
+            position: relative;
+
+            width: 25%;
+
+            height: 82px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 3px;
+
+            color: #777777;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        /* Circular icon */
+
+        .category-icon {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 50%;
+
+            background: #f2f2f2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .category-name {
+            font-size: 12px;
+
+            line-height: 1.1;
+
+            font-weight: 500;
+
+            white-space: nowrap;
+        }
+
+
+        /* Active category */
+
+        .category.active {
+            color: #171717;
+        }
+
+
+        .category.active .category-icon {
+            background: #171717;
+
+            color: #ffffff;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 13px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .category:active .category-icon {
+            transform: scale(0.93);
+        }
+
+
+        /* ==============================
+           NEW BADGE
+        ============================== */
+
+        .new-badge {
+            position: absolute;
+
+            top: 2px;
+
+            right: calc(50% - 29px);
+
+            background: #ff3867;
+
+            color: #ffffff;
+
+            font-size: 7px;
+
+            font-weight: 700;
+
+            padding: 3px 5px;
+
+            border-radius: 5px;
+
+            line-height: 1;
+
+            z-index: 10;
+        }
+
+
+        /* ==============================
+           MAIN CONTENT
         ============================== */
 
         .content {
-            padding: 22px 18px 35px;
+            padding: 20px 18px 35px;
         }
 
 
@@ -98,7 +238,7 @@
 
             color: #777777;
 
-            margin-bottom: 19px;
+            margin-bottom: 18px;
         }
 
 
@@ -111,7 +251,7 @@
 
             width: 100%;
 
-            height: 345px;
+            height: 335px;
 
             border-radius: 24px;
 
@@ -147,8 +287,7 @@
         }
 
 
-        .experience-card:hover
-        .experience-image {
+        .experience-card:hover .experience-image {
             transform: scale(1.025);
         }
 
@@ -179,24 +318,24 @@
 
 
         /* ==============================
-           CATEGORY
+           ADVENTURE
         ============================== */
 
         .adventure-pill {
             position: absolute;
 
-            top: 15px;
-            left: 15px;
+            top: 14px;
+            left: 14px;
 
             z-index: 3;
 
-            padding: 7px 12px;
+            padding: 7px 11px;
 
             border-radius: 20px;
 
             color: #ffffff;
 
-            font-size: 13px;
+            font-size: 12px;
 
             background:
                 rgba(255, 255, 255, 0.18);
@@ -217,12 +356,12 @@
         .popular {
             position: absolute;
 
-            top: 15px;
-            right: 14px;
+            top: 14px;
+            right: 13px;
 
             z-index: 3;
 
-            padding: 8px 12px;
+            padding: 7px 11px;
 
             border-radius: 20px;
 
@@ -230,7 +369,7 @@
 
             color: #ffffff;
 
-            font-size: 13px;
+            font-size: 12px;
 
             font-weight: 700;
         }
@@ -243,9 +382,9 @@
         .card-content {
             position: absolute;
 
-            left: 19px;
-            right: 15px;
-            bottom: 17px;
+            left: 18px;
+            right: 14px;
+            bottom: 16px;
 
             z-index: 3;
 
@@ -254,7 +393,7 @@
 
 
         .experience-title {
-            font-size: 22px;
+            font-size: 21px;
 
             line-height: 1.14;
 
@@ -278,723 +417,22 @@
             color:
                 rgba(255, 255, 255, 0.86);
 
-            font-size: 14px;
+            font-size: 13px;
 
-            margin-bottom: 17px;
+            margin-bottom: 15px;
         }
 
 
         .location-icon {
-            font-size: 15px;
+            font-size: 14px;
         }
 
 
         /* ==============================
-           CARD DETAILS
+           DETAILS
         ============================== */
 
         .card-bottom {
             display: flex;
 
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-        }
-
-
-        .details {
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-            font-size: 14px;
-
-            color: #ffffff;
-
-            white-space: nowrap;
-        }
-
-
-        .star {
-            color: #ffd21c;
-
-            font-size: 16px;
-        }
-
-
-        .rating {
-            font-weight: 700;
-        }
-
-
-        .dot-separator {
-            opacity: 0.65;
-        }
-
-
-        /* ==============================
-           PRICE
-        ============================== */
-
-        .price {
-            background: #ffffff;
-
-            color: #171717;
-
-            border-radius: 22px;
-
-            padding: 9px 13px;
-
-            font-size: 15px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            box-shadow:
-                0 4px 14px rgba(0, 0, 0, 0.12);
-        }
-
-
-        .price span {
-            font-size: 12px;
-
-            font-weight: 400;
-
-            color: #555555;
-        }
-
-
-        /* ==============================
-           DOTS
-        ============================== */
-
-        .dots {
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            gap: 6px;
-
-            margin-top: 4px;
-        }
-
-
-        .dot {
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: #d8d8d8;
-        }
-
-
-        .dot.active {
-            width: 28px;
-
-            border-radius: 10px;
-
-            background: #ff3564;
-        }
-
-
-        /* ==============================
-           FIXED BOTTOM FOOTER
-        ============================== */
-
-        .category-nav {
-            position: fixed;
-
-            left: 50%;
-
-            bottom: 0;
-
-            transform: translateX(-50%);
-
-            width: 100%;
-
-            max-width: 620px;
-
-            height: 82px;
-
-            background: rgba(255, 255, 255, 0.96);
-
-            backdrop-filter: blur(18px);
-
-            -webkit-backdrop-filter: blur(18px);
-
-            border-top: 1px solid #eeeeee;
-
-            box-shadow:
-                0 -5px 20px rgba(0, 0, 0, 0.07);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-around;
-
-            padding: 6px 10px 8px;
-
-            z-index: 1000;
-        }
-
-
-        /* ==============================
-           NAV ITEMS
-        ============================== */
-
-        .category {
-            position: relative;
-
-            width: 25%;
-
-            height: 70px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 4px;
-
-            color: #777777;
-
-            cursor: pointer;
-
-            transition:
-                color 0.2s ease;
-        }
-
-
-        /* ==============================
-           CIRCULAR ICON
-        ============================== */
-
-        .category-icon {
-            width: 43px;
-
-            height: 43px;
-
-            border-radius: 50%;
-
-            background: #f3f3f3;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 21px;
-
-            transition:
-                background 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-
-        .category-name {
-            font-size: 11px;
-
-            line-height: 1;
-
-            font-weight: 500;
-        }
-
-
-        /* ==============================
-           ACTIVE BUTTON
-        ============================== */
-
-        .category.active {
-            color: #171717;
-        }
-
-
-        .category.active .category-icon {
-            background: #171717;
-
-            color: #ffffff;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 5px 13px rgba(0, 0, 0, 0.16);
-        }
-
-
-        .category:active .category-icon {
-            transform: scale(0.92);
-        }
-
-
-        /* ==============================
-           NEW BADGE
-        ============================== */
-
-        .new-badge {
-            position: absolute;
-
-            top: 0;
-
-            right: calc(50% - 28px);
-
-            background: #ff3867;
-
-            color: #ffffff;
-
-            font-size: 7px;
-
-            font-weight: 700;
-
-            padding: 3px 5px;
-
-            border-radius: 5px;
-
-            line-height: 1;
-
-            z-index: 2;
-        }
-
-
-        /* ==============================
-           MOBILE
-        ============================== */
-
-        @media (max-width: 400px) {
-
-            body {
-                padding-bottom: 88px;
-            }
-
-
-            .top-banner {
-                height: 70px;
-            }
-
-
-            .content {
-                padding:
-                    20px
-                    15px
-                    30px;
-            }
-
-
-            .page-title {
-                font-size: 25px;
-            }
-
-
-            .page-subtitle {
-                font-size: 15px;
-
-                margin-bottom: 17px;
-            }
-
-
-            .experience-card {
-                height: 315px;
-
-                border-radius: 21px;
-            }
-
-
-            .experience-title {
-                font-size: 20px;
-            }
-
-
-            .location {
-                font-size: 13px;
-
-                margin-bottom: 14px;
-            }
-
-
-            .details {
-                font-size: 13px;
-            }
-
-
-            .price {
-                font-size: 14px;
-
-                padding: 8px 11px;
-            }
-
-
-            .price span {
-                font-size: 11px;
-            }
-
-
-            .category-nav {
-                height: 78px;
-
-                padding:
-                    4px
-                    7px
-                    6px;
-            }
-
-
-            .category {
-                height: 66px;
-            }
-
-
-            .category-icon {
-                width: 40px;
-                height: 40px;
-
-                font-size: 19px;
-            }
-
-
-            .category-name {
-                font-size: 10px;
-            }
-
-
-            .new-badge {
-                right: calc(50% - 26px);
-
-                top: 0;
-
-                font-size: 6px;
-            }
-
-        }
-
-    </style>
-</head>
-
-
-<body>
-
-
-    <!-- =====================================
-         MAIN APP
-    ====================================== -->
-
-    <div class="app">
-
-
-        <!-- TOP SPACE -->
-
-        <div class="top-banner"></div>
-
-
-        <!-- CONTENT -->
-
-        <main class="content">
-
-
-            <h1 class="page-title">
-                Experiences
-            </h1>
-
-
-            <p class="page-subtitle">
-                Unforgettable activities led by local hosts
-            </p>
-
-
-            <!-- CARD 1 -->
-
-            <article class="experience-card">
-
-                <img
-                    class="experience-image"
-                    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85"
-                    alt="Mountain experience"
-                >
-
-
-                <div class="adventure-pill">
-                    Adventure
-                </div>
-
-
-                <div class="popular">
-                    <span>♨</span>
-                    Popular
-                </div>
-
-
-                <div class="card-content">
-
-                    <h2 class="experience-title">
-                        Sunrise volcano hike &
-                        breakfast
-                    </h2>
-
-
-                    <div class="location">
-
-                        <span class="location-icon">
-                            ♧
-                        </span>
-
-                        <span>
-                            Mount Batur, Bali
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-bottom">
-
-                        <div class="details">
-
-                            <span class="star">
-                                ★
-                            </span>
-
-                            <span class="rating">
-                                4.98
-                            </span>
-
-                            <span class="dot-separator">
-                                ·
-                            </span>
-
-                            <span>
-                                6 hours
-                            </span>
-
-                        </div>
-
-
-                        <div class="price">
-                            $65<span>/guest</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- CARD 2 -->
-
-            <article class="experience-card">
-
-                <img
-                    class="experience-image"
-                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85"
-                    alt="Mountain experience"
-                >
-
-
-                <div class="adventure-pill">
-                    Adventure
-                </div>
-
-
-                <div class="popular">
-                    <span>♨</span>
-                    Popular
-                </div>
-
-
-                <div class="card-content">
-
-                    <h2 class="experience-title">
-                        Sunrise volcano hike &
-                        breakfast
-                    </h2>
-
-
-                    <div class="location">
-
-                        <span class="location-icon">
-                            ♧
-                        </span>
-
-                        <span>
-                            Mount Batur, Bali
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-bottom">
-
-                        <div class="details">
-
-                            <span class="star">
-                                ★
-                            </span>
-
-                            <span class="rating">
-                                4.98
-                            </span>
-
-                            <span class="dot-separator">
-                                ·
-                            </span>
-
-                            <span>
-                                6 hours
-                            </span>
-
-                        </div>
-
-
-                        <div class="price">
-                            $65<span>/guest</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- DOTS -->
-
-            <div class="dots">
-
-                <div class="dot active"></div>
-
-                <div class="dot"></div>
-
-                <div class="dot"></div>
-
-            </div>
-
-
-        </main>
-
-    </div>
-
-
-    <!-- =====================================
-         FIXED FOOTER NAVIGATION
-    ====================================== -->
-
-    <nav class="category-nav">
-
-
-        <!-- HOME -->
-
-        <div class="category">
-
-            <div class="category-icon">
-                🏠
-            </div>
-
-            <div class="category-name">
-                Home
-            </div>
-
-        </div>
-
-
-        <!-- EXPERIENCES -->
-
-        <div class="category active">
-
-            <div class="new-badge">
-                NEW
-            </div>
-
-            <div class="category-icon">
-                💡
-            </div>
-
-            <div class="category-name">
-                Experiences
-            </div>
-
-        </div>
-
-
-        <!-- SERVICES -->
-
-        <div class="category">
-
-            <div class="new-badge">
-                NEW
-            </div>
-
-            <div class="category-icon">
-                🛎️
-            </div>
-
-            <div class="category-name">
-                Services
-            </div>
-
-        </div>
-
-
-        <!-- FAVORITES -->
-
-        <div class="category">
-
-            <div class="category-icon">
-                ❤️
-            </div>
-
-            <div class="category-name">
-                Favorites
-            </div>
-
-        </div>
-
-
-    </nav>
-
-
-    <script>
-
-        const categories =
-            document.querySelectorAll(".category");
-
-
-        categories.forEach(function(category) {
-
-            category.addEventListener(
-                "click",
-                function() {
-
-                    categories.forEach(
-                        function(item) {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-                    category.classList.add(
-                        "active"
-                    );
-
-                }
-            );
-
-        });
-
-    </script>
-
-</body>
-</html>
+            align-items: center
