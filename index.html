@@ -2,316 +2,757 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Experiences</title>
 
     <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html {
             width: 100%;
             min-height: 100%;
         }
 
         body {
-            background: #000;
-            color: #fff;
-            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+
+            background: #ffffff;
+
+            color: #171717;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* =========================
-           OPENING SCREEN
-        ========================= */
 
-        .intro {
-            position: fixed;
+        /* =========================================
+           APP
+        ========================================= */
+
+        .app {
+            width: 100%;
+            max-width: 700px;
+
+            min-height: 100vh;
+
+            margin: 0 auto;
+
+            background: #ffffff;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================
+           TOP BANNER
+        ========================================= */
+
+        .top-banner {
+            width: 100%;
+
+            height: 132px;
+
+            background: #f7f7f7;
+        }
+
+
+        /* =========================================
+           CATEGORY NAVIGATION
+        ========================================= */
+
+        .category-nav {
+            width: 100%;
+
+            height: 130px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-around;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #eeeeee;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.06);
+
+            position: relative;
+
+            z-index: 5;
+        }
+
+
+        .category {
+            width: 33.333%;
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            position: relative;
+
+            color: #777777;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .category-icon {
+            font-size: 43px;
+
+            line-height: 1;
+
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .category-name {
+            font-size: 22px;
+
+            font-weight: 400;
+
+            line-height: 1.1;
+        }
+
+
+        .category.active {
+            color: #171717;
+        }
+
+
+        .category.active::after {
+            content: "";
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 48px;
+
+            height: 4px;
+
+            background: #222222;
+
+            border-radius: 10px 10px 0 0;
+        }
+
+
+        /* =========================================
+           NEW BADGE
+        ========================================= */
+
+        .new-badge {
+            position: absolute;
+
+            top: 12px;
+
+            right: 25px;
+
+            background: #ff3b68;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            line-height: 1;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .content {
+            padding: 27px 28px 45px;
+        }
+
+
+        .page-title {
+            font-size: 34px;
+
+            line-height: 1.15;
+
+            font-weight: 750;
+
+            letter-spacing: -0.8px;
+
+            color: #151515;
+
+            margin-bottom: 6px;
+        }
+
+
+        .page-subtitle {
+            font-size: 23px;
+
+            line-height: 1.35;
+
+            color: #777777;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =========================================
+           EXPERIENCE CARD
+        ========================================= */
+
+        .experience-card {
+            position: relative;
+
+            width: 100%;
+
+            height: 465px;
+
+            border-radius: 32px;
+
+            overflow: hidden;
+
+            margin-bottom: 22px;
+
+            background: #777777;
+
+            box-shadow:
+                0 7px 20px rgba(0, 0, 0, 0.10);
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           CARD IMAGE
+        ========================================= */
+
+        .experience-image {
+            position: absolute;
+
             inset: 0;
 
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
 
-            background: linear-gradient(
-                135deg,
-                #ff0055,
-                #e6005c,
-                #c90068
-            );
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            z-index: 9999;
-            overflow: hidden;
-
-            animation: introDisappear 1s ease-in-out 3.5s forwards;
-        }
-
-        .intro-content {
-            text-align: center;
-
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-
-            animation: introContent 1.2s ease-out 0.3s forwards;
-        }
-
-        .intro-logo {
-            font-size: clamp(45px, 12vw, 100px);
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: #fff;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-
-        .intro-text {
-            font-size: clamp(16px, 4vw, 25px);
-            color: rgba(255, 255, 255, 0.95);
-            letter-spacing: 1px;
-        }
-
-        .loading-line {
-            width: 120px;
-            height: 3px;
-
-            background: rgba(255, 255, 255, 0.25);
-
-            margin: 35px auto 0;
-
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .loading-line::after {
-            content: "";
-
-            display: block;
-
-            width: 0;
-            height: 100%;
-
-            background: #fff;
-
-            border-radius: 10px;
-
-            animation: loading 2.5s ease-in-out forwards;
-        }
-
-        /* =========================
-           MAIN WEBSITE
-        ========================= */
-
-        .website {
-            min-height: 100vh;
-            background: #000;
-
-            opacity: 0;
-
-            animation: websiteAppear 1s ease-in-out 4s forwards;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        header {
-            text-align: center;
-            padding: 30px 20px;
-            border-bottom: 1px solid #222;
-        }
-
-        header h1 {
-            font-size: 32px;
-            letter-spacing: 3px;
-        }
-
-        /* =========================
-           PRODUCTS
-        ========================= */
-
-        .products {
-            max-width: 1200px;
-            margin: auto;
-
-            padding: 50px 30px;
-
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px 25px;
-        }
-
-        /* =========================
-           PRODUCT
-        ========================= */
-
-        .product {
-            text-align: center;
-        }
-
-        /* =========================
-           EMPTY IMAGE AREA
-           FIRESTORE IMAGES WILL GO HERE LATER
-        ========================= */
-
-        .product-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-
-            background: #000;
-
-            border: 1px solid #222;
-            border-radius: 10px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-        }
-
-        /* When we add an image from Firestore later */
-
-        .product-image img {
-            width: 100%;
             height: 100%;
 
             object-fit: cover;
 
-            display: block;
+            transition: transform 0.5s ease;
         }
 
-        /* =========================
-           PRODUCT NAME
-        ========================= */
 
-        .product h2 {
-            margin-top: 18px;
+        .experience-card:hover .experience-image {
+            transform: scale(1.03);
+        }
+
+
+        /* =========================================
+           IMAGE DARK OVERLAY
+        ========================================= */
+
+        .experience-card::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.03) 0%,
+                    rgba(0, 0, 0, 0.04) 35%,
+                    rgba(0, 0, 0, 0.30) 62%,
+                    rgba(0, 0, 0, 0.78) 100%
+                );
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================
+           CATEGORY PILL
+        ========================================= */
+
+        .adventure-pill {
+            position: absolute;
+
+            top: 22px;
+
+            left: 22px;
+
+            z-index: 3;
+
+            padding: 10px 17px;
+
+            border-radius: 30px;
+
+            color: #ffffff;
+
+            font-size: 17px;
+
+            font-weight: 500;
+
+            background: rgba(255, 255, 255, 0.16);
+
+            border: 1px solid rgba(255, 255, 255, 0.65);
+
+            backdrop-filter: blur(8px);
+
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+
+        /* =========================================
+           POPULAR BADGE
+        ========================================= */
+
+        .popular {
+            position: absolute;
+
+            top: 22px;
+
+            right: 20px;
+
+            z-index: 3;
+
+            padding: 11px 17px;
+
+            border-radius: 30px;
+
+            background: #ff1f63;
+
+            color: #ffffff;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 5px 15px rgba(255, 31, 99, 0.22);
+        }
+
+
+        .popular span {
+            margin-right: 5px;
+        }
+
+
+        /* =========================================
+           CARD CONTENT
+        ========================================= */
+
+        .card-content {
+            position: absolute;
+
+            left: 28px;
+
+            right: 22px;
+
+            bottom: 27px;
+
+            z-index: 3;
+
+            color: #ffffff;
+        }
+
+
+        .experience-title {
+            font-size: 30px;
+
+            line-height: 1.13;
+
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+
+            max-width: 430px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .location {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: rgba(255, 255, 255, 0.86);
+
             font-size: 20px;
+
+            margin-bottom: 28px;
         }
 
-        /* =========================
-           DESCRIPTION
-        ========================= */
 
-        .description {
-            margin: 8px auto 0;
-
-            max-width: 300px;
-
-            color: #999;
-
-            font-size: 14px;
-
-            line-height: 1.6;
+        .location-icon {
+            font-size: 21px;
         }
 
-        /* =========================
-           PRICE
-        ========================= */
 
-        .price {
-            margin-top: 12px;
+        /* =========================================
+           BOTTOM INFO
+        ========================================= */
+
+        .card-bottom {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .details {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
 
             font-size: 18px;
 
-            font-weight: bold;
+            color: #ffffff;
+
+            white-space: nowrap;
         }
 
-        /* =========================
-           ANIMATIONS
-        ========================= */
 
-        @keyframes introContent {
+        .star {
+            color: #ffd21c;
 
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
+            font-size: 21px;
+        }
+
+
+        .rating {
+            font-weight: 700;
+        }
+
+
+        .dot-separator {
+            opacity: 0.7;
+        }
+
+
+        .duration {
+            opacity: 0.95;
+        }
+
+
+        /* =========================================
+           PRICE
+        ========================================= */
+
+        .price {
+            background: #ffffff;
+
+            color: #171717;
+
+            border-radius: 30px;
+
+            padding: 13px 19px;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .price span {
+            font-size: 15px;
+
+            font-weight: 400;
+
+            color: #555555;
+
+            margin-left: 2px;
+        }
+
+
+        /* =========================================
+           CAROUSEL DOTS
+        ========================================= */
+
+        .dots {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 5px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .dot {
+            width: 9px;
+
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #d9d9d9;
+        }
+
+
+        .dot.active {
+            width: 34px;
+
+            border-radius: 10px;
+
+            background: #ff3564;
+        }
+
+
+        /* =========================================
+           DESKTOP
+        ========================================= */
+
+        @media (min-width: 701px) {
+
+            body {
+                background: #202126;
             }
 
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
+            .app {
+                box-shadow:
+                    0 0 60px rgba(0, 0, 0, 0.35);
             }
 
         }
 
-        @keyframes loading {
 
-            0% {
-                width: 0%;
-            }
-
-            100% {
-                width: 100%;
-            }
-
-        }
-
-        @keyframes introDisappear {
-
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-            }
-
-        }
-
-        @keyframes websiteAppear {
-
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-
-        }
-
-        /* =========================
-           TABLET
-        ========================= */
-
-        @media (max-width: 900px) {
-
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-        /* =========================
-           PHONE
-        ========================= */
+        /* =========================================
+           MOBILE
+        ========================================= */
 
         @media (max-width: 600px) {
 
-            .intro-logo {
-                letter-spacing: 2px;
+            .top-banner {
+                height: 100px;
             }
 
-            .products {
-                grid-template-columns: 1fr;
 
-                padding: 35px 20px;
-
-                gap: 45px;
+            .category-nav {
+                height: 118px;
             }
 
-            header h1 {
-                font-size: 26px;
+
+            .category-icon {
+                font-size: 38px;
+
+                height: 45px;
+            }
+
+
+            .category-name {
+                font-size: 19px;
+            }
+
+
+            .new-badge {
+                top: 9px;
+
+                right: 14px;
+
+                font-size: 10px;
+
+                padding: 5px 7px;
+            }
+
+
+            .content {
+                padding: 25px 18px 40px;
+            }
+
+
+            .page-title {
+                font-size: 31px;
+            }
+
+
+            .page-subtitle {
+                font-size: 20px;
+
+                margin-bottom: 24px;
+            }
+
+
+            .experience-card {
+                height: 440px;
+
+                border-radius: 29px;
+
+                margin-bottom: 20px;
+            }
+
+
+            .adventure-pill {
+                top: 18px;
+
+                left: 18px;
+
+                padding: 9px 14px;
+
+                font-size: 15px;
+            }
+
+
+            .popular {
+                top: 18px;
+
+                right: 16px;
+
+                padding: 10px 14px;
+
+                font-size: 15px;
+            }
+
+
+            .card-content {
+                left: 22px;
+
+                right: 17px;
+
+                bottom: 21px;
+            }
+
+
+            .experience-title {
+                font-size: 27px;
+
+                max-width: 360px;
+            }
+
+
+            .location {
+                font-size: 18px;
+
+                margin-bottom: 24px;
+            }
+
+
+            .details {
+                font-size: 16px;
+
+                gap: 6px;
+            }
+
+
+            .price {
+                padding: 12px 16px;
+
+                font-size: 18px;
+            }
+
+
+            .price span {
+                font-size: 14px;
+            }
+
+        }
+
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 380px) {
+
+            .category-icon {
+                font-size: 34px;
+            }
+
+
+            .category-name {
+                font-size: 17px;
+            }
+
+
+            .experience-card {
+                height: 410px;
+            }
+
+
+            .experience-title {
+                font-size: 24px;
+            }
+
+
+            .location {
+                font-size: 16px;
+            }
+
+
+            .details {
+                font-size: 14px;
+            }
+
+
+            .price {
+                padding: 10px 13px;
+
+                font-size: 16px;
             }
 
         }
@@ -319,167 +760,270 @@
     </style>
 </head>
 
+
 <body>
 
-    <!-- =========================
-         OPENING SCREEN
-    ========================= -->
-
-    <div class="intro">
-
-        <div class="intro-content">
-
-            <div class="intro-logo">
-                YOUR NAME
-            </div>
-
-            <div class="intro-text">
-                Your text goes here
-            </div>
-
-            <div class="loading-line"></div>
-
-        </div>
-
-    </div>
+    <div class="app">
 
 
-    <!-- =========================
-         MAIN WEBSITE
-    ========================= -->
+        <!-- =====================================
+             TOP EMPTY AREA
+        ====================================== -->
 
-    <div class="website">
-
-        <header>
-            <h1>MY STORE</h1>
-        </header>
+        <div class="top-banner"></div>
 
 
-        <main class="products">
+        <!-- =====================================
+             CATEGORY NAVIGATION
+        ====================================== -->
+
+        <nav class="category-nav">
 
 
-            <!-- PRODUCT 1 -->
+            <!-- HOMES -->
 
-            <div class="product">
+            <div class="category">
 
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here later -->
+                <div class="category-icon">
+                    🏠
                 </div>
 
-                <h2>Product One</h2>
-
-                <p class="description">
-                    This is the description of the first product.
-                </p>
-
-                <div class="price">
-                    $25.00
+                <div class="category-name">
+                    Homes
                 </div>
 
             </div>
 
 
-            <!-- PRODUCT 2 -->
+            <!-- EXPERIENCES -->
 
-            <div class="product">
+            <div class="category active">
 
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here later -->
+                <div class="new-badge">
+                    NEW
                 </div>
 
-                <h2>Product Two</h2>
-
-                <p class="description">
-                    This is the description of the second product.
-                </p>
-
-                <div class="price">
-                    $40.00
+                <div class="category-icon">
+                    💡
                 </div>
 
-            </div>
-
-
-            <!-- PRODUCT 3 -->
-
-            <div class="product">
-
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here -->
-                </div>
-
-                <h2>Product Three</h2>
-
-                <p class="description">
-                    This is the description of the third product.
-                </p>
-
-                <div class="price">
-                    $30.00
+                <div class="category-name">
+                    Experiences
                 </div>
 
             </div>
 
 
-            <!-- PRODUCT 4 -->
+            <!-- SERVICES -->
 
-            <div class="product">
+            <div class="category">
 
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here -->
+                <div class="new-badge">
+                    NEW
                 </div>
 
-                <h2>Product Four</h2>
-
-                <p class="description">
-                    This is the description of the fourth product.
-                </p>
-
-                <div class="price">
-                    $50.00
+                <div class="category-icon">
+                    🛎️
                 </div>
 
-            </div>
-
-
-            <!-- PRODUCT 5 -->
-
-            <div class="product">
-
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here -->
-                </div>
-
-                <h2>Product Five</h2>
-
-                <p class="description">
-                    This is the description of the fifth product.
-                </p>
-
-                <div class="price">
-                    $35.00
+                <div class="category-name">
+                    Services
                 </div>
 
             </div>
 
 
-            <!-- PRODUCT 6 -->
+        </nav>
 
-            <div class="product">
 
-                <div class="product-image">
-                    <!-- Firestore image will be inserted here -->
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="content">
+
+
+            <h1 class="page-title">
+                Experiences
+            </h1>
+
+
+            <p class="page-subtitle">
+                Unforgettable activities led by local hosts
+            </p>
+
+
+            <!-- =================================
+                 EXPERIENCE 1
+            ================================== -->
+
+            <article class="experience-card">
+
+
+                <img
+                    class="experience-image"
+                    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85"
+                    alt="Mountain experience"
+                >
+
+
+                <div class="adventure-pill">
+                    Adventure
                 </div>
 
-                <h2>Product Six</h2>
 
-                <p class="description">
-                    This is the description of the sixth product.
-                </p>
-
-                <div class="price">
-                    $60.00
+                <div class="popular">
+                    <span>♨</span>
+                    Popular
                 </div>
+
+
+                <div class="card-content">
+
+                    <h2 class="experience-title">
+                        Sunrise volcano hike &
+                        breakfast
+                    </h2>
+
+
+                    <div class="location">
+
+                        <span class="location-icon">
+                            ♧
+                        </span>
+
+                        <span>
+                            Mount Batur, Bali
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-bottom">
+
+                        <div class="details">
+
+                            <span class="star">
+                                ★
+                            </span>
+
+                            <span class="rating">
+                                4.98
+                            </span>
+
+                            <span class="dot-separator">
+                                ·
+                            </span>
+
+                            <span class="duration">
+                                6 hours
+                            </span>
+
+                        </div>
+
+
+                        <div class="price">
+                            $65<span>/guest</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================
+                 EXPERIENCE 2
+            ================================== -->
+
+            <article class="experience-card">
+
+
+                <img
+                    class="experience-image"
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85"
+                    alt="Mountain sunrise experience"
+                >
+
+
+                <div class="adventure-pill">
+                    Adventure
+                </div>
+
+
+                <div class="popular">
+                    <span>♨</span>
+                    Popular
+                </div>
+
+
+                <div class="card-content">
+
+                    <h2 class="experience-title">
+                        Sunrise volcano hike &
+                        breakfast
+                    </h2>
+
+
+                    <div class="location">
+
+                        <span class="location-icon">
+                            ♧
+                        </span>
+
+                        <span>
+                            Mount Batur, Bali
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-bottom">
+
+                        <div class="details">
+
+                            <span class="star">
+                                ★
+                            </span>
+
+                            <span class="rating">
+                                4.98
+                            </span>
+
+                            <span class="dot-separator">
+                                ·
+                            </span>
+
+                            <span class="duration">
+                                6 hours
+                            </span>
+
+                        </div>
+
+
+                        <div class="price">
+                            $65<span>/guest</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================
+                 DOTS
+            ================================== -->
+
+            <div class="dots">
+
+                <div class="dot active"></div>
+
+                <div class="dot"></div>
+
+                <div class="dot"></div>
 
             </div>
 
@@ -487,6 +1031,45 @@
         </main>
 
     </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script>
+
+        const categories =
+            document.querySelectorAll(".category");
+
+
+        categories.forEach(function(category) {
+
+            category.addEventListener(
+                "click",
+                function() {
+
+                    categories.forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    category.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        });
+
+    </script>
 
 </body>
 </html>
