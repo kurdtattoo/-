@@ -239,6 +239,54 @@
       gap:6px;
       flex-wrap:wrap;
     }
+    .availability-toggle{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      margin-top:7px;
+      padding:6px 10px;
+      border:1px solid #333;
+      border-radius:999px;
+      background:#171717;
+      color:#aaa;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .availability-toggle:hover{
+      transform:translateY(-1px);
+      border-color:#555;
+    }
+    .availability-toggle .availability-check{
+      width:18px;
+      height:18px;
+      display:grid;
+      place-items:center;
+      border:2px solid #666;
+      border-radius:5px;
+      font-size:12px;
+      line-height:1;
+    }
+    .availability-toggle.available{
+      color:#62e58a;
+      border-color:rgba(62,207,105,.38);
+      background:rgba(62,207,105,.08);
+    }
+    .availability-toggle.available .availability-check{
+      border-color:#3ecf69;
+      background:#3ecf69;
+      color:#07110a;
+    }
+    .availability-toggle.unavailable{
+      color:#ff6666;
+      border-color:rgba(255,87,87,.38);
+      background:rgba(255,87,87,.08);
+    }
+    .availability-toggle.unavailable .availability-check{
+      border-color:#ff5757;
+      color:#ff5757;
+    }
     .login{
       min-height:100vh;
       display:grid;
@@ -751,7 +799,20 @@
                 ${escapeHtml(product.brand || "")}
               </span>
             </td>
-            <td>${price}</td>
+            <td>
+              <div>${price}</div>
+              <button
+                class="availability-toggle ${product.available !== false ? "available" : "unavailable"}"
+                type="button"
+                data-action="availability"
+                data-id="${escapeAttribute(product.id)}"
+                aria-pressed="${product.available !== false ? "true" : "false"}"
+                title="گۆڕینی بەردەستیی بەرهەم"
+              >
+                <span class="availability-check">${product.available !== false ? "✓" : "×"}</span>
+                ${product.available !== false ? "بەردەستە" : "بەردەست نیە"}
+              </button>
+            </td>
             <td>${Number(product.stock || 0)}</td>
             <td>
               <span class="badge ${active ? "on" : "off"}">
@@ -927,6 +988,8 @@
           .split(/\r?\n/)
           .map(url => url.trim())
           .filter(Boolean);
+        const id = $("id").value.trim();
+        const existingProduct = id ? getProductById(id) : null;
         const payload = {
           name,
           price: Number($("price").value || 0),
@@ -941,10 +1004,10 @@
           stock: Number($("stock").value || 0),
           featured: $("featured").checked,
           active: $("active").checked,
+          available: existingProduct ? existingProduct.available !== false : true,
           imageUrl: images[0] || "",
           updatedAt: serverTimestamp()
         };
-        const id = $("id").value.trim();
         if (id) {
           await withTimeout(
             updateDoc(doc(db, "products", id), payload),
@@ -1029,6 +1092,26 @@
         showToast("سڕینەوە سەرکەوتوو نەبوو");
       }
     }
+    async function toggleAvailability(id) {
+      const product = getProductById(id);
+      if (!product) return;
+      const nextAvailable = product.available === false;
+      try {
+        await withTimeout(
+          updateDoc(doc(db, "products", id), {
+            available: nextAvailable,
+            updatedAt: serverTimestamp()
+          }),
+          20000,
+          "FIRESTORE_AVAILABILITY_UPDATE"
+        );
+        showToast(nextAvailable ? "بەرهەمەکە بەردەستە" : "بەرهەمەکە بەردەست نیە");
+      } catch (error) {
+        console.error("AVAILABILITY UPDATE ERROR:", error);
+        const code = error?.code || "";
+        showToast(code === "permission-denied" ? "Firebase ڕێگەی نووسین نادات" : "نوێکردنەوەی بەردەستی سەرکەوتوو نەبوو");
+      }
+    }
     async function toggleProduct(id) {
       const product = getProductById(id);
       if (!product) {
@@ -1092,6 +1175,10 @@
       }
       if (action === "toggle") {
         toggleProduct(id);
+        return;
+      }
+      if (action === "availability") {
+        toggleAvailability(id);
         return;
       }
       if (action === "delete") {

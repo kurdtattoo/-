@@ -160,6 +160,13 @@ html{zoom:100%;}
   .product-card-v2 .product-name{font-size:15px;font-weight:800;line-height:1.5;}
   .product-card-v2 .product-small-desc{font-size:12px;color:#777;line-height:1.7;min-height:41px;}
   .product-card-v2 .product-price{font-size:17px;color:var(--red);font-weight:900;margin-top:auto;}
+  .product-availability{display:inline-flex;align-items:center;gap:6px;width:max-content;font-size:12px;font-weight:900;line-height:1.2;margin-top:-1px;}
+  .product-availability .availability-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:0 0 9px;}
+  .product-availability.available{color:#16a34a;}
+  .product-availability.available .availability-dot{background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12);}
+  .product-availability.unavailable{color:#dc2626;}
+  .product-availability.unavailable .availability-dot{background:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.10);}
+  .product-detail-availability{margin:0 0 14px;}
   .product-more-btn{border:0;background:var(--red);color:#fff;border-radius:6px;padding:10px 12px;font-size:12.5px;font-weight:800;cursor:pointer;margin-top:4px;}
   .product-more-btn:hover{background:var(--red-dark);}
   .product-empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:#999;}
@@ -1130,6 +1137,7 @@ window.dispatchEvent(new Event("products-firebase-ready"));
       <h2 id="productDetailTitle"></h2>
       <div class="product-detail-brand" id="productDetailBrand"></div>
       <div class="product-detail-price" id="productDetailPrice"></div>
+      <div class="product-availability product-detail-availability" id="productDetailAvailability"></div>
       <div class="product-detail-section" id="sizeSection" style="display:none"><h4>قەبارە</h4><div class="size-options" id="sizeOptions"></div></div>
       <div class="product-detail-section"><h4>وەسفی تەواو</h4><div class="product-detail-description" id="productDetailDescription"></div></div>
     </div>
@@ -1278,6 +1286,10 @@ function renderProducts(){
         <div class="product-name">${escHtml(p.name||'بەرهەم')}</div>
         <div class="product-small-desc">${escHtml(p.smallDescription||'')}</div>
         <div class="product-price">${formatPrice(price,currency)}</div>
+        <div class="product-availability ${p.available !== false ? "available" : "unavailable"}">
+          <span class="availability-dot" aria-hidden="true"></span>
+          ${p.available !== false ? "بەردەستە" : "بەردەست نیە"}
+        </div>
       </div>
     </article>`;
   }).join('');
@@ -1353,6 +1365,12 @@ function updateDetailPrice(){
   const price=activeDetailSize?activeDetailSize.price:activeDetailProduct.price;
   const currency=activeDetailSize?activeDetailSize.currency:activeDetailProduct.currency;
   document.getElementById('productDetailPrice').textContent=formatPrice(price,currency);
+  const availability=document.getElementById('productDetailAvailability');
+  if(availability){
+    const available=activeDetailProduct.available!==false;
+    availability.className=`product-availability product-detail-availability ${available?'available':'unavailable'}`;
+    availability.innerHTML=`<span class="availability-dot" aria-hidden="true"></span>${available?'بەردەستە':'بەردەست نیە'}`;
+  }
 }
 function closeProductDetail(){
   const modal=document.getElementById('productDetailModal');
