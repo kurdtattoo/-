@@ -1273,7 +1273,7 @@ function currentFilteredProducts(){
 function renderProducts(){
   const grid=document.getElementById('productsGrid');
   if(!grid) return;
-  const list=currentFilteredProducts();
+  const list=currentFilteredProducts().sort((a,b)=>(a.available===false?1:0)-(b.available===false?1:0));
   if(!list.length){grid.innerHTML='<div class="product-empty">هیچ بەرهەمێک لەم بەشەدا نییە.</div>';return;}
   grid.innerHTML=list.map(p=>{
     const img=p.images[0]||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="600" height="600"%3E%3Crect width="100%25" height="100%25" fill="%23eeeeee"/%3E%3C/svg%3E';
