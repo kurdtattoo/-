@@ -767,6 +767,7 @@
           Array.isArray(product.images) && product.images[0]
             ? product.images[0]
             : product.imageUrl || "";
+        const discountPrice = Number(product.discountPrice || 0);
         const price = product.sizes?.length
           ? money(product.sizes[0].price, product.sizes[0].currency)
           : money(product.price, product.currency);
@@ -801,7 +802,7 @@
               </span>
             </td>
             <td>
-              <div>${activeAvailability ? price : "X"}</div>
+              <div>${activeAvailability ? (discountPrice > 0 ? `<span style="text-decoration:line-through;color:#777;font-size:12px;margin-left:6px;">${price}</span> <b>${money(discountPrice, product.currency || (product.sizes?.[0]?.currency || "IQD"))}</b>` : price) : "X"}</div>
               <button
                 class="availability-toggle ${product.available !== false ? "available" : "unavailable"}"
                 type="button"
@@ -931,6 +932,9 @@
         product?.stock ?? 0;
       $("price").value =
         product?.price ?? 0;
+       $("discountPrice").value =
+         product?.discountPrice ?? "";
+
       $("images").value =
         Array.isArray(product?.images)
           ? product.images.join("\n")
@@ -994,6 +998,10 @@
         const payload = {
           name,
           price: Number($("price").value || 0),
+       discountPrice: (() => {
+         const value = Number($("discountPrice").value || 0);
+         return value > 0 ? value : null;
+       })(),
           currency: $("currency").value,
           category: $("category").value,
           brand: $("brand").value.trim(),
@@ -1572,6 +1580,10 @@
               step="0.01"
               required
             >
+        <label class="field">
+          <span>نرخی داشکاندن</span>
+          <input class="input" id="discountPrice" type="number" min="0" step="0.01" placeholder="بەتاڵ = داشکاندن نییە">
+        </label>
           </div>
           <!-- CURRENCY -->
           <div class="field">

@@ -270,6 +270,23 @@ html{zoom:100%;}
      .nav-item{font-size:11px;padding-inline:10px;}
    }
 
+
+    .discount-price-wrap{
+      display:flex;
+      align-items:baseline;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .discount-original-price{
+      color:#777;
+      text-decoration:line-through;
+      text-decoration-thickness:1px;
+      font-size:.82em;
+      font-weight:600;
+    }
+    .discount-price{
+      font-weight:900;
+    }
 </style>
 
 <style id="main-page-only-zoom">
@@ -1299,6 +1316,11 @@ function renderProducts(){
     const img=p.images[0]||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="600" height="600"%3E%3Crect width="100%25" height="100%25" fill="%23eeeeee"/%3E%3C/svg%3E';
     const hasSizes=Array.isArray(p.sizes)&&p.sizes.length>0;
     const price=hasSizes?p.sizes[0].price:p.price;
+        const discountPrice = Number(product.discountPrice || 0);
+        const displayPrice = discountPrice > 0
+          ? `<div class="discount-price-wrap"><span class="discount-original-price">${displayPrice}</span><span class="discount-price">${money(discountPrice, product.currency || "IQD")}</span></div>`
+          : price;
+
     const currency=hasSizes?p.sizes[0].currency:p.currency;
     const available=p.available!==false;
     return `<article class="product-card-v2 prod-card" role="button" tabindex="0" onclick="openProductDetail('${escAttr(p.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetail('${escAttr(p.id)}')}" data-category="${escAttr(p.category||'')}" data-categories="${escAttr(p.categories||'')}">
