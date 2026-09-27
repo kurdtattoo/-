@@ -170,10 +170,11 @@ html{zoom:100%;}
   .product-more-btn{border:0;background:var(--red);color:#fff;border-radius:6px;padding:10px 12px;font-size:12.5px;font-weight:800;cursor:pointer;margin-top:4px;}
   .product-more-btn:hover{background:var(--red-dark);}
   .product-empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:#999;}
-  .availability-divider{grid-column:1/-1;text-align:center;font-size:18px;font-weight:900;margin:18px 0 8px;white-space:nowrap;}
-  .availability-divider span{display:inline-block;}
+  .availability-divider{grid-column:1/-1;display:flex;align-items:center;gap:10px;text-align:center;font-size:15px;font-weight:900;margin:8px 0 4px;white-space:nowrap;}
+  .availability-divider::before,.availability-divider::after{content:"";height:1px;background:currentColor;opacity:.35;flex:1;}
+  .availability-divider span{display:inline-block;padding:0 2px;}
   .available-divider{color:#16a34a;}
-  .unavailable-divider{color:#d32f2f;margin-top:28px;padding-top:18px;border-top:1px solid #e5e5e5;}
+  .unavailable-divider{color:#d32f2f;margin-top:12px;padding-top:8px;border-top:0;}
   .availability-section{grid-column:1/-1;}
   .availability-section-title{margin:8px 0 18px;font-size:24px;font-weight:900;display:flex;align-items:center;gap:10px;}
   .availability-section-title::before{content:"";width:7px;height:28px;border-radius:5px;background:var(--red);display:inline-block;}
@@ -1313,7 +1314,7 @@ function renderProducts(){
     </article>`;
   };
 
-  const divider=(title,type)=>`<div class="availability-divider ${type}" aria-hidden="true"><span>------------${title}-----------</span></div>`;
+  const divider=(title,type)=>`<div class="availability-divider ${type}" aria-hidden="true"><span>${title}</span></div>`;
 
   grid.innerHTML=
     (availableProducts.length ? divider('بەردەستە','available-divider') + availableProducts.map(renderCard).join('') : '') +
