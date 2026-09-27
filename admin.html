@@ -35,10 +35,8 @@
 
     header {
       width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 22px 0;
+      padding: 20px 10px 16px;
+      border-bottom: 1px solid #292929;
     }
 
     h1 {
@@ -46,31 +44,10 @@
       font-size: 1.8rem;
       font-weight: normal;
       text-align: center;
+      margin-bottom: 16px;
     }
 
-    /* Main content */
-
-    main {
-      flex: 1;
-    }
-
-    /* Sub-footer */
-
-    .category-footer {
-      width: 100%;
-      padding: 14px 10px 18px;
-      border-top: 1px solid #292929;
-      background: #101010;
-    }
-
-    .categories-title {
-      font-family: "CategoriesFont", sans-serif;
-      text-align: center;
-      font-size: 1rem;
-      font-weight: normal;
-      margin-bottom: 12px;
-      color: #ffffff;
-    }
+    /* Categories */
 
     .categories {
       width: 100%;
@@ -120,9 +97,20 @@
       text-align: center;
     }
 
+    /* Main */
+
+    main {
+      flex: 1;
+    }
+
     /* Mobile */
 
     @media (max-width: 420px) {
+      header {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+
       .categories {
         gap: 7px;
       }
@@ -146,17 +134,8 @@
 <body>
 
   <header>
+
     <h1>کوردستان تاتۆ</h1>
-  </header>
-
-  <main>
-  </main>
-
-  <footer class="category-footer">
-
-    <div class="categories-title">
-      پۆلەکان
-    </div>
 
     <div class="categories">
 
@@ -190,7 +169,10 @@
 
     </div>
 
-  </footer>
+  </header>
+
+  <main>
+  </main>
 
 </body>
 </html>
