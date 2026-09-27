@@ -150,7 +150,7 @@ html{zoom:100%;}
 
 
   /* ---------- PRODUCTS V2 ---------- */
-  #products{padding:44px 0;}
+  #products{padding:8px 0 44px;}
   .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
   .product-card-v2{background:#fff;border:2px solid #000;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;min-width:0;}
   .product-card-v2:hover{box-shadow:0 8px 22px rgba(0,0,0,.09);transform:translateY(-3px);}
@@ -170,11 +170,12 @@ html{zoom:100%;}
   .product-more-btn{border:0;background:var(--red);color:#fff;border-radius:6px;padding:10px 12px;font-size:12.5px;font-weight:800;cursor:pointer;margin-top:4px;}
   .product-more-btn:hover{background:var(--red-dark);}
   .product-empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:#999;}
-  .availability-divider{grid-column:1/-1;display:flex;align-items:center;gap:10px;text-align:center;font-size:15px;font-weight:900;margin:8px 0 4px;white-space:nowrap;}
-  .availability-divider::before,.availability-divider::after{content:"";height:1px;background:currentColor;opacity:.35;flex:1;}
-  .availability-divider span{display:inline-block;padding:0 2px;}
+  .availability-divider{grid-column:1/-1;display:flex;align-items:center;gap:12px;text-align:center;font-size:13px;font-weight:900;margin:2px 0 10px;white-space:nowrap;line-height:1;}
+  .availability-divider::before,.availability-divider::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,currentColor 45%,currentColor 55%,transparent);opacity:.55;}
+  .availability-divider span{display:flex;align-items:center;gap:8px;padding:0 4px;letter-spacing:.2px;}
+  .availability-divider span::before,.availability-divider span::after{content:"";width:5px;height:5px;border:1px solid currentColor;transform:rotate(45deg);opacity:.65;}
   .available-divider{color:#16a34a;}
-  .unavailable-divider{color:#d32f2f;margin-top:12px;padding-top:8px;border-top:0;}
+  .unavailable-divider{color:#d32f2f;margin-top:18px;padding-top:0;border-top:0;}
   .availability-section{grid-column:1/-1;}
   .availability-section-title{margin:8px 0 18px;font-size:24px;font-weight:900;display:flex;align-items:center;gap:10px;}
   .availability-section-title::before{content:"";width:7px;height:28px;border-radius:5px;background:var(--red);display:inline-block;}
