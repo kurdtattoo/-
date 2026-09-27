@@ -1,256 +1,415 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="کوردستان تاتۆ — وشە، هونەر و دیزاینی تاتۆ لە کوردستان." />
+  <title>کوردستان تاتۆ</title>
 
-<title>My Website</title>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-}
-
-body {
-    background: #ffffff;
-    color: #111111;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.app {
-    width: 100%;
-    max-width: 600px;
-    min-height: 100vh;
-    margin: 0 auto;
-    background: white;
-}
-
-/* TOP EMPTY SPACE */
-.top-banner {
-    width: 100%;
-    height: 35px;
-    background: #f7f7f7;
-}
-
-/* HEADER */
-.header {
-    width: 100%;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid #eeeeee;
-    background: white;
-}
-
-/* CATEGORY */
-.category {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-}
-
-/* CIRCLE */
-.icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #eeeeee;
-
-    font-size: 21px;
-
-    margin-bottom: 5px;
-}
-
-/* ACTIVE CIRCLE */
-.category.active .icon {
-    background: #111111;
-    color: white;
-}
-
-/* TEXT */
-.name {
-    font-size: 11px;
-    color: #555555;
-}
-
-.category.active .name {
-    color: #111111;
-    font-weight: bold;
-}
-
-/* NEW */
-.new {
-    position: absolute;
-    top: -3px;
-    right: 8px;
-
-    background: #ff2d64;
-    color: white;
-
-    font-size: 7px;
-    font-weight: bold;
-
-    padding: 3px 5px;
-    border-radius: 5px;
-}
-
-/* CONTENT */
-.content {
-    padding: 25px 18px;
-}
-
-h1 {
-    font-size: 28px;
-    margin-bottom: 7px;
-}
-
-.subtitle {
-    color: #777777;
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-
-/* TEST CARD */
-.card {
-    width: 100%;
-    height: 250px;
-    background: #eeeeee;
-    border-radius: 22px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #777777;
-    font-size: 16px;
-}
-
-/* MOBILE */
-@media (max-width: 400px) {
-
-    .header {
-        height: 85px;
+  <style>
+    @font-face {
+      font-family: "KurdistanTitle";
+      src: url("./fonttitle.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
     }
 
-    .icon {
-        width: 40px;
-        height: 40px;
-        font-size: 19px;
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface-2: #181818;
+      --text: #f5f5f5;
+      --muted: #a7a7a7;
+      --line: #292929;
+      --accent: #ffffff;
+      --radius: 24px;
     }
 
-    .name {
-        font-size: 10px;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .new {
-        right: 3px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .content {
-        padding: 20px 15px;
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
     }
 
-    h1 {
-        font-size: 25px;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-}
-</style>
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 38px 0 24px;
+      text-align: center;
+    }
+
+    .brand {
+      font-family: "KurdistanTitle", sans-serif;
+      font-size: clamp(3.2rem, 9vw, 7rem);
+      font-weight: normal;
+      line-height: 1.15;
+      letter-spacing: 0;
+      color: var(--text);
+    }
+
+    .tagline {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Categories */
+    .categories-section {
+      width: min(1100px, calc(100% - 40px));
+      margin: 35px auto 75px;
+    }
+
+    .section-label {
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .category {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .category::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid #252525;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .category:hover {
+      transform: translateY(-7px);
+      border-color: #666;
+      background: var(--surface-2);
+    }
+
+    .category-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .category-number {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      direction: ltr;
+    }
+
+    .category-title {
+      font-family: "KurdistanTitle", sans-serif;
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: normal;
+    }
+
+    .category-description {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    /* Products */
+    .products-section {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto 90px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading h2 {
+      font-family: "KurdistanTitle", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: normal;
+      line-height: 1.2;
+    }
+
+    .section-heading p {
+      max-width: 420px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .product {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #1c1c1c;
+    }
+
+    .product-image img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 7px;
+      font-size: 1.1rem;
+    }
+
+    .product-info p {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .product-tag {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #bbb;
+      font-size: 0.7rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 30px 20px 45px;
+      border-top: 1px solid var(--line);
+      color: #777;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    .footer-brand {
+      margin-bottom: 4px;
+      color: #aaa;
+      font-family: "KurdistanTitle", sans-serif;
+      font-size: 1.7rem;
+    }
+
+    /* Tablet */
+    @media (max-width: 800px) {
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 520px) {
+      header {
+        width: min(100% - 28px, 1200px);
+        padding-top: 28px;
+      }
+
+      .categories-section,
+      .products-section {
+        width: calc(100% - 28px);
+      }
+
+      .categories-section {
+        margin-top: 25px;
+        margin-bottom: 60px;
+      }
+
+      .categories {
+        gap: 12px;
+      }
+
+      .category::before {
+        inset: 6px;
+      }
+
+      .category-content {
+        padding: 12px;
+      }
+
+      .category-description {
+        display: none;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-heading p {
+        margin-top: 8px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <h1 class="brand">کوردستان تاتۆ</h1>
+    <p class="tagline">هونەری تاتۆ بە شێوەیەکی جیاواز</p>
+  </header>
 
-<div class="app">
+  <main>
+    <!-- 4 circular categories -->
+    <section class="categories-section" aria-label="Categories">
+      <p class="section-label">Categories</p>
 
-    <!-- TOP -->
-    <div class="top-banner"></div>
+      <div class="categories">
+        <a class="category" href="#traditional">
+          <div class="category-content">
+            <span class="category-number">01</span>
+            <h2 class="category-title">کلاسیک</h2>
+            <p class="category-description">دیزاینە کڵاسیکەکان</p>
+          </div>
+        </a>
 
-    <!-- HEADER -->
-    <div class="header">
+        <a class="category" href="#minimal">
+          <div class="category-content">
+            <span class="category-number">02</span>
+            <h2 class="category-title">مینیمال</h2>
+            <p class="category-description">سادە و جوان</p>
+          </div>
+        </a>
 
-        <!-- HOME -->
-        <div class="category active">
-            <div class="icon">🏠</div>
-            <div class="name">Home</div>
-        </div>
+        <a class="category" href="#kurdish">
+          <div class="category-content">
+            <span class="category-number">03</span>
+            <h2 class="category-title">کوردی</h2>
+            <p class="category-description">لە کەلتووری کوردی</p>
+          </div>
+        </a>
 
-        <!-- EXPERIENCES -->
-        <div class="category">
-            <div class="new">NEW</div>
-            <div class="icon">💡</div>
-            <div class="name">Experiences</div>
-        </div>
+        <a class="category" href="#custom">
+          <div class="category-content">
+            <span class="category-number">04</span>
+            <h2 class="category-title">تایبەت</h2>
+            <p class="category-description">دیزاینی تایبەت</p>
+          </div>
+        </a>
+      </div>
+    </section>
 
-        <!-- SERVICES -->
-        <div class="category">
-            <div class="new">NEW</div>
-            <div class="icon">🛎️</div>
-            <div class="name">Services</div>
-        </div>
+    <!-- Products -->
+    <section class="products-section" id="traditional">
+      <div class="section-heading">
+        <h2>دیزاینەکان</h2>
+        <p>کۆمەڵێک لە دیزاینەکانی کوردستان تاتۆ. وێنە و ناوەڕۆکەکانت دەتوانیت لێرە بگۆڕیت.</p>
+      </div>
 
-        <!-- FAVORITES -->
-        <div class="category">
-            <div class="icon">❤️</div>
-            <div class="name">Favorites</div>
-        </div>
+      <div class="products">
+        <article class="product" id="minimal">
+          <div class="product-image">
+            <!-- Replace with your image: images/product-1.jpg -->
+            <img src="images/product-1.jpg" alt="دیزاینی تاتۆ ١" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <h3>دیزاینی یەکەم</h3>
+            <p>وەسفی کورت بۆ ئەم دیزاینە. لێرە دەتوانیت زانیاری زیاتر بنووسیت.</p>
+            <span class="product-tag">مینیمال</span>
+          </div>
+        </article>
 
-    </div>
+        <article class="product" id="kurdish">
+          <div class="product-image">
+            <!-- Replace with your image: images/product-2.jpg -->
+            <img src="images/product-2.jpg" alt="دیزاینی تاتۆ ٢" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <h3>دیزاینی دووەم</h3>
+            <p>وەسفی کورت بۆ ئەم دیزاینە و ئەو بیرۆکەیەی پشت دیزاینەکەیە.</p>
+            <span class="product-tag">کوردی</span>
+          </div>
+        </article>
 
+        <article class="product" id="custom">
+          <div class="product-image">
+            <!-- Replace with your image: images/product-3.jpg -->
+            <img src="images/product-3.jpg" alt="دیزاینی تاتۆ ٣" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <h3>دیزاینی سێیەم</h3>
+            <p>وەسفی کورت بۆ ئەم دیزاینە. دەتوانیت دەقەکە بە ئاسانی بگۆڕیت.</p>
+            <span class="product-tag">تایبەت</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-    <!-- MAIN -->
-    <main class="content">
-
-        <h1>Experiences</h1>
-
-        <p class="subtitle">
-            Unforgettable activities led by local hosts
-        </p>
-
-        <div class="card">
-            Your experiences will appear here
-        </div>
-
-    </main>
-
-</div>
-
-
-<script>
-
-const categories = document.querySelectorAll(".category");
-
-categories.forEach(function(category) {
-
-    category.addEventListener("click", function() {
-
-        categories.forEach(function(item) {
-            item.classList.remove("active");
-        });
-
-        category.classList.add("active");
-
-    });
-
-});
-
-</script>
-
+  <footer>
+    <div class="footer-brand">کوردستان تاتۆ</div>
+    <p>© 2026 Kurdistan Tattoo — All rights reserved.</p>
+  </footer>
 </body>
 </html>
