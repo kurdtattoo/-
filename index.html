@@ -31,6 +31,7 @@
         .intro {
             position: fixed;
             inset: 0;
+
             width: 100%;
             height: 100vh;
             height: 100dvh;
@@ -116,6 +117,10 @@
             animation: websiteAppear 1s ease-in-out 4s forwards;
         }
 
+        /* =========================
+           HEADER
+        ========================= */
+
         header {
             text-align: center;
             padding: 30px 20px;
@@ -127,9 +132,14 @@
             letter-spacing: 3px;
         }
 
+        /* =========================
+           PRODUCTS
+        ========================= */
+
         .products {
             max-width: 1200px;
             margin: auto;
+
             padding: 50px 30px;
 
             display: grid;
@@ -137,45 +147,80 @@
             gap: 40px 25px;
         }
 
+        /* =========================
+           PRODUCT
+        ========================= */
+
         .product {
             text-align: center;
         }
 
-        .product img {
+        /* =========================
+           EMPTY IMAGE AREA
+           FIRESTORE IMAGES WILL GO HERE LATER
+        ========================= */
+
+        .product-image {
             width: 100%;
             aspect-ratio: 1 / 1;
-            object-fit: cover;
-            display: block;
 
-            background: #111;
+            background: #000;
+
             border: 1px solid #222;
             border-radius: 10px;
 
-            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
         }
 
-        .product:hover img {
-            transform: scale(1.02);
-            border-color: #555;
+        /* When we add an image from Firestore later */
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
         }
+
+        /* =========================
+           PRODUCT NAME
+        ========================= */
 
         .product h2 {
             margin-top: 18px;
             font-size: 20px;
         }
 
+        /* =========================
+           DESCRIPTION
+        ========================= */
+
         .description {
             margin: 8px auto 0;
+
             max-width: 300px;
 
             color: #999;
+
             font-size: 14px;
+
             line-height: 1.6;
         }
 
+        /* =========================
+           PRICE
+        ========================= */
+
         .price {
             margin-top: 12px;
+
             font-size: 18px;
+
             font-weight: bold;
         }
 
@@ -184,6 +229,7 @@
         ========================= */
 
         @keyframes introContent {
+
             0% {
                 opacity: 0;
                 transform: translateY(30px) scale(0.95);
@@ -193,9 +239,11 @@
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
+
         }
 
         @keyframes loading {
+
             0% {
                 width: 0%;
             }
@@ -203,9 +251,11 @@
             100% {
                 width: 100%;
             }
+
         }
 
         @keyframes introDisappear {
+
             0% {
                 opacity: 1;
             }
@@ -215,9 +265,11 @@
                 visibility: hidden;
                 pointer-events: none;
             }
+
         }
 
         @keyframes websiteAppear {
+
             0% {
                 opacity: 0;
             }
@@ -225,6 +277,7 @@
             100% {
                 opacity: 1;
             }
+
         }
 
         /* =========================
@@ -232,9 +285,11 @@
         ========================= */
 
         @media (max-width: 900px) {
+
             .products {
                 grid-template-columns: repeat(2, 1fr);
             }
+
         }
 
         /* =========================
@@ -242,20 +297,25 @@
         ========================= */
 
         @media (max-width: 600px) {
+
             .intro-logo {
                 letter-spacing: 2px;
             }
 
             .products {
                 grid-template-columns: 1fr;
+
                 padding: 35px 20px;
+
                 gap: 45px;
             }
 
             header h1 {
                 font-size: 26px;
             }
+
         }
+
     </style>
 </head>
 
@@ -269,12 +329,10 @@
 
         <div class="intro-content">
 
-            <!-- CHANGE YOUR NAME HERE -->
             <div class="intro-logo">
                 YOUR NAME
             </div>
 
-            <!-- CHANGE YOUR TEXT HERE -->
             <div class="intro-text">
                 Your text goes here
             </div>
@@ -296,15 +354,17 @@
             <h1>MY STORE</h1>
         </header>
 
+
         <main class="products">
 
+
             <!-- PRODUCT 1 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+1"
-                    alt="Product 1"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here later -->
+                </div>
 
                 <h2>Product One</h2>
 
@@ -320,12 +380,12 @@
 
 
             <!-- PRODUCT 2 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+2"
-                    alt="Product 2"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here later -->
+                </div>
 
                 <h2>Product Two</h2>
 
@@ -341,12 +401,12 @@
 
 
             <!-- PRODUCT 3 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+3"
-                    alt="Product 3"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here -->
+                </div>
 
                 <h2>Product Three</h2>
 
@@ -362,12 +422,12 @@
 
 
             <!-- PRODUCT 4 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+4"
-                    alt="Product 4"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here -->
+                </div>
 
                 <h2>Product Four</h2>
 
@@ -383,12 +443,12 @@
 
 
             <!-- PRODUCT 5 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+5"
-                    alt="Product 5"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here -->
+                </div>
 
                 <h2>Product Five</h2>
 
@@ -404,12 +464,12 @@
 
 
             <!-- PRODUCT 6 -->
+
             <div class="product">
 
-                <img
-                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+6"
-                    alt="Product 6"
-                >
+                <div class="product-image">
+                    <!-- Firestore image will be inserted here -->
+                </div>
 
                 <h2>Product Six</h2>
 
@@ -422,6 +482,7 @@
                 </div>
 
             </div>
+
 
         </main>
 
