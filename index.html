@@ -766,34 +766,6 @@ const firebaseConfig = {
 const productsApp = initializeApp(firebaseConfig, "products-public");
 const productsDb = getFirestore(productsApp);
 
-const bannerRef = doc(productsDb, "settings", "banner");
-
-function applyBanner(data){
-  const banner = document.getElementById("heroBanner");
-  if (!banner) {
-    document.addEventListener("DOMContentLoaded", () => applyBanner(data), { once:true });
-    return;
-  }
-  const url = String(data?.imageUrl || "").trim();
-  if (url) {
-    banner.src = url;
-    banner.style.display = "block";
-  } else {
-    banner.removeAttribute("src");
-    banner.style.display = "none";
-  }
-  banner.onerror = () => {
-    banner.onerror = null;
-    banner.removeAttribute("src");
-    banner.style.display = "none";
-  };
-}
-
-onSnapshot(
-  bannerRef,
-  snapshot => applyBanner(snapshot.exists() ? snapshot.data() : {}),
-  error => console.error("Firestore banner sync error:", error)
-);
 
 window.PHToolsProducts = {
   subscribe(callback, onError){
@@ -1095,49 +1067,10 @@ window.dispatchEvent(new Event("products-firebase-ready"));
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
-<header class="top">
-  <div class="container header-row">
-    <div class="search-block">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="گەران بەدوای بەرهەم...">
-        <button id="searchBtn" aria-label="گەران">
-          <svg class="icon" style="stroke:#fff" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="icons-block">
-      <div class="icon-item menu-trigger" onclick="toggleMenu(true)" aria-label="کردنەوەی مینیو">
-        <span class="hamburger-icon-wrap">
-          <svg class="icon hamburger-icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </span>
-        مینیو
-      </div>
-      <button class="icon-item location-action" type="button" onclick="getLocation()" aria-label="شوێنی من">
-        <span class="location-icon-wrap"><svg class="icon" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-        شوێن
-      </button>
-<button class="icon-item contact-action phone" type="button" onclick="openContactChooser()" aria-label="پەیوەندی">
-        <span class="contact-icon">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5l3 1.2-1.4 3.4-1.5.8a13.5 13.5 0 0 0 8.5 8.5l.8-1.5 3.4-1.4 1.2 3c.3.8-.1 1.7-.9 2.1-1.1.5-2.3.7-3.5.4A17 17 0 0 1 4.4 7.4c-.3-1.2-.1-2.4.4-3.5.4-.8 1.3-1.2 2.1-.9z"/></svg>
-        </span>
-        <span>پەیوەندی</span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ============ HERO BANNER SLIDER ============ -->
-<section class="hero" id="home" aria-label="بەنەری پڕۆمۆشن">
-  <img class="hero-banner" id="heroBanner" alt="PH.Tools main banner" style="display:none">
-</section>
-
-
 <!-- ============ NAV ============ -->
 <nav class="mainnav" aria-label="بەشەکانی بەرهەم">
   <div class="container nav-row">
-    <a class="nav-item home category-filter active" href="#home" data-filter="all" onclick="filterProducts('all'); return false;">
+    <a class="nav-item home category-filter active" href="#products" data-filter="all" onclick="filterProducts('all'); return false;">
       <span class="category-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
       </span>
@@ -1202,30 +1135,6 @@ window.dispatchEvent(new Event("products-firebase-ready"));
     </div>
   </div>
 </div>
-
-<!-- ============ FEATURES ============ -->
-<section class="features">
-  <div class="container features-row">
-    <div class="feature">
-      <div class="ficon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg></div>
-      <div class="ftext"><b>بەرزترین کوالیتی</b><span>بەرهەمی ئۆرجینال</span></div>
-    </div>
-    <div class="feature">
-      <div class="ficon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
-      <div class="ftext"><b>مارکەی عالەمی</b><span>گرەنتی بەرهەمەکان</span></div>
-    </div>
-    <div class="feature">
-      <div class="ficon"><svg class="icon" viewBox="0 0 24 24"><rect x="1" y="7" width="14" height="9"/><path d="M15 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></div>
-      <div class="ftext"><b>گەیاندنی خێرا</b><span>بۆ هەموو شارەکان</span></div>
-    </div>
-    <div class="feature">
-      <div class="ficon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/><path d="M12 12V6"/></svg></div>
-      <div class="ftext"><b>کەرەستەی بیناسازی</b><span>بۆ هەموو پرۆژەیەک</span></div>
-    </div>
-  </div>
-</section>
-
-
 
 <style id="contact-logo-only-design">
 /* Contact chooser — same centered logo-only design as Location */
