@@ -12,10 +12,108 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             background: #000;
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =========================
+           OPENING SCREEN
+        ========================= */
+
+        .intro {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+
+            background: linear-gradient(
+                135deg,
+                #ff0055,
+                #e6005c,
+                #c90068
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 9999;
+            overflow: hidden;
+
+            animation: introDisappear 1s ease-in-out 3.5s forwards;
+        }
+
+        .intro-content {
+            text-align: center;
+
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+
+            animation: introContent 1.2s ease-out 0.3s forwards;
+        }
+
+        .intro-logo {
+            font-size: clamp(45px, 12vw, 100px);
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .intro-text {
+            font-size: clamp(16px, 4vw, 25px);
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 1px;
+        }
+
+        .loading-line {
+            width: 120px;
+            height: 3px;
+
+            background: rgba(255, 255, 255, 0.25);
+
+            margin: 35px auto 0;
+
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .loading-line::after {
+            content: "";
+
+            display: block;
+
+            width: 0;
+            height: 100%;
+
+            background: #fff;
+
+            border-radius: 10px;
+
+            animation: loading 2.5s ease-in-out forwards;
+        }
+
+        /* =========================
+           MAIN WEBSITE
+        ========================= */
+
+        .website {
+            min-height: 100vh;
+            background: #000;
+
+            opacity: 0;
+
+            animation: websiteAppear 1s ease-in-out 4s forwards;
         }
 
         header {
@@ -33,6 +131,7 @@
             max-width: 1200px;
             margin: auto;
             padding: 50px 30px;
+
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px 25px;
@@ -47,9 +146,11 @@
             aspect-ratio: 1 / 1;
             object-fit: cover;
             display: block;
+
             background: #111;
             border: 1px solid #222;
             border-radius: 10px;
+
             transition: 0.3s ease;
         }
 
@@ -66,6 +167,7 @@
         .description {
             margin: 8px auto 0;
             max-width: 300px;
+
             color: #999;
             font-size: 14px;
             line-height: 1.6;
@@ -77,15 +179,71 @@
             font-weight: bold;
         }
 
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes introContent {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes introDisappear {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        @keyframes websiteAppear {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
         @media (max-width: 900px) {
             .products {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
+        /* =========================
+           PHONE
+        ========================= */
+
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 26px;
+            .intro-logo {
+                letter-spacing: 2px;
             }
 
             .products {
@@ -93,61 +251,181 @@
                 padding: 35px 20px;
                 gap: 45px;
             }
+
+            header h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>MY STORE</h1>
-    </header>
+    <!-- =========================
+         OPENING SCREEN
+    ========================= -->
 
-    <main class="products">
+    <div class="intro">
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+1" alt="Product 1">
-            <h2>Product One</h2>
-            <p class="description">This is the description of the first product.</p>
-            <div class="price">$25.00</div>
+        <div class="intro-content">
+
+            <!-- CHANGE YOUR NAME HERE -->
+            <div class="intro-logo">
+                YOUR NAME
+            </div>
+
+            <!-- CHANGE YOUR TEXT HERE -->
+            <div class="intro-text">
+                Your text goes here
+            </div>
+
+            <div class="loading-line"></div>
+
         </div>
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+2" alt="Product 2">
-            <h2>Product Two</h2>
-            <p class="description">This is the description of the second product.</p>
-            <div class="price">$40.00</div>
-        </div>
+    </div>
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+3" alt="Product 3">
-            <h2>Product Three</h2>
-            <p class="description">This is the description of the third product.</p>
-            <div class="price">$30.00</div>
-        </div>
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+4" alt="Product 4">
-            <h2>Product Four</h2>
-            <p class="description">This is the description of the fourth product.</p>
-            <div class="price">$50.00</div>
-        </div>
+    <!-- =========================
+         MAIN WEBSITE
+    ========================= -->
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+5" alt="Product 5">
-            <h2>Product Five</h2>
-            <p class="description">This is the description of the fifth product.</p>
-            <div class="price">$35.00</div>
-        </div>
+    <div class="website">
 
-        <div class="product">
-            <img src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+6" alt="Product 6">
-            <h2>Product Six</h2>
-            <p class="description">This is the description of the sixth product.</p>
-            <div class="price">$60.00</div>
-        </div>
+        <header>
+            <h1>MY STORE</h1>
+        </header>
 
-    </main>
+        <main class="products">
+
+            <!-- PRODUCT 1 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+1"
+                    alt="Product 1"
+                >
+
+                <h2>Product One</h2>
+
+                <p class="description">
+                    This is the description of the first product.
+                </p>
+
+                <div class="price">
+                    $25.00
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+2"
+                    alt="Product 2"
+                >
+
+                <h2>Product Two</h2>
+
+                <p class="description">
+                    This is the description of the second product.
+                </p>
+
+                <div class="price">
+                    $40.00
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+3"
+                    alt="Product 3"
+                >
+
+                <h2>Product Three</h2>
+
+                <p class="description">
+                    This is the description of the third product.
+                </p>
+
+                <div class="price">
+                    $30.00
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+4"
+                    alt="Product 4"
+                >
+
+                <h2>Product Four</h2>
+
+                <p class="description">
+                    This is the description of the fourth product.
+                </p>
+
+                <div class="price">
+                    $50.00
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 5 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+5"
+                    alt="Product 5"
+                >
+
+                <h2>Product Five</h2>
+
+                <p class="description">
+                    This is the description of the fifth product.
+                </p>
+
+                <div class="price">
+                    $35.00
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 6 -->
+            <div class="product">
+
+                <img
+                    src="https://via.placeholder.com/600x600/111111/ffffff?text=Product+6"
+                    alt="Product 6"
+                >
+
+                <h2>Product Six</h2>
+
+                <p class="description">
+                    This is the description of the sixth product.
+                </p>
+
+                <div class="price">
+                    $60.00
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
 
 </body>
 </html>
