@@ -770,6 +770,7 @@
         const price = product.sizes?.length
           ? money(product.sizes[0].price, product.sizes[0].currency)
           : money(product.price, product.currency);
+        const activeAvailability = product.available !== false;
         const active = product.active !== false;
         return `
           <tr>
@@ -800,7 +801,7 @@
               </span>
             </td>
             <td>
-              <div>${price}</div>
+              <div>${activeAvailability ? price : "X"}</div>
               <button
                 class="availability-toggle ${product.available !== false ? "available" : "unavailable"}"
                 type="button"

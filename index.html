@@ -1285,7 +1285,7 @@ function renderProducts(){
       <div class="product-content">
         <div class="product-name">${escHtml(p.name||'بەرهەم')}</div>
         <div class="product-small-desc">${escHtml(p.smallDescription||'')}</div>
-        <div class="product-price">${formatPrice(price,currency)}</div>
+        <div class="product-price">${p.available !== false ? formatPrice(price,currency) : "X"}</div>
         <div class="product-availability ${p.available !== false ? "available" : "unavailable"}">
           <span class="availability-dot" aria-hidden="true"></span>
           ${p.available !== false ? `بەردەستە | ${Number(p.availableCount ?? p.stock ?? 0)} دانە` : "بەردەست نیە"}
@@ -1364,7 +1364,7 @@ function updateDetailPrice(){
   if(!activeDetailProduct) return;
   const price=activeDetailSize?activeDetailSize.price:activeDetailProduct.price;
   const currency=activeDetailSize?activeDetailSize.currency:activeDetailProduct.currency;
-  document.getElementById('productDetailPrice').textContent=formatPrice(price,currency);
+  document.getElementById('productDetailPrice').textContent=activeDetailProduct.available!==false ? formatPrice(price,currency) : "X";
   const availability=document.getElementById('productDetailAvailability');
   if(availability){
     const available=activeDetailProduct.available!==false;
