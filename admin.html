@@ -810,7 +810,7 @@
                 title="گۆڕینی بەردەستیی بەرهەم"
               >
                 <span class="availability-check">${product.available !== false ? "✓" : "×"}</span>
-                ${product.available !== false ? "بەردەستە" : "بەردەست نیە"}
+                ${product.available !== false ? `بەردەستە | ${Number(product.availableCount ?? product.stock ?? 0)} دانە` : "بەردەست نیە"}
               </button>
             </td>
             <td>${Number(product.stock || 0)}</td>
@@ -1095,17 +1095,32 @@
     async function toggleAvailability(id) {
       const product = getProductById(id);
       if (!product) return;
-      const nextAvailable = product.available === false;
+      const currentAvailable = product.available !== false;
+      const currentCount = Number(product.availableCount ?? product.stock ?? 1);
+      const answer = prompt(
+        currentAvailable
+          ? "چەند دانە بەردەستە؟ (ژمارە بنووسە)"
+          : "چەند دانە بەردەستە؟ (ژمارە بنووسە؛ 0 = بەردەست نیە)",
+        String(currentAvailable ? Math.max(1, currentCount) : 0)
+      );
+      if (answer === null) return;
+      const count = Number(answer);
+      if (!Number.isInteger(count) || count < 0) {
+        showToast("تکایە ژمارەیەکی دروست بنووسە");
+        return;
+      }
+      const nextAvailable = count > 0;
       try {
         await withTimeout(
           updateDoc(doc(db, "products", id), {
             available: nextAvailable,
+            availableCount: count,
             updatedAt: serverTimestamp()
           }),
           20000,
           "FIRESTORE_AVAILABILITY_UPDATE"
         );
-        showToast(nextAvailable ? "بەرهەمەکە بەردەستە" : "بەرهەمەکە بەردەست نیە");
+        showToast(nextAvailable ? `بەردەستە — ${count} دانە` : "بەرهەمەکە بەردەست نیە");
       } catch (error) {
         console.error("AVAILABILITY UPDATE ERROR:", error);
         const code = error?.code || "";

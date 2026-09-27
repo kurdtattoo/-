@@ -1288,7 +1288,7 @@ function renderProducts(){
         <div class="product-price">${formatPrice(price,currency)}</div>
         <div class="product-availability ${p.available !== false ? "available" : "unavailable"}">
           <span class="availability-dot" aria-hidden="true"></span>
-          ${p.available !== false ? "بەردەستە" : "بەردەست نیە"}
+          ${p.available !== false ? `بەردەستە | ${Number(p.availableCount ?? p.stock ?? 0)} دانە` : "بەردەست نیە"}
         </div>
       </div>
     </article>`;
@@ -1369,7 +1369,8 @@ function updateDetailPrice(){
   if(availability){
     const available=activeDetailProduct.available!==false;
     availability.className=`product-availability product-detail-availability ${available?'available':'unavailable'}`;
-    availability.innerHTML=`<span class="availability-dot" aria-hidden="true"></span>${available?'بەردەستە':'بەردەست نیە'}`;
+    const count=Number(activeDetailProduct.availableCount ?? activeDetailProduct.stock ?? 0);
+    availability.innerHTML=`<span class="availability-dot" aria-hidden="true"></span>${available?`بەردەستە | ${count} دانە`:'بەردەست نیە'}`;
   }
 }
 function closeProductDetail(){
