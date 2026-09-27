@@ -34,6 +34,8 @@
                 sans-serif;
 
             -webkit-font-smoothing: antialiased;
+
+            padding-bottom: 95px;
         }
 
 
@@ -64,141 +66,6 @@
             height: 75px;
 
             background: #f7f7f7;
-        }
-
-
-        /* ==============================
-           FOUR CIRCULAR NAV BUTTONS
-        ============================== */
-
-        .category-nav {
-            width: 100%;
-
-            height: 105px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-around;
-
-            padding: 8px 18px 12px;
-
-            background: #ffffff;
-
-            border-bottom: 1px solid #eeeeee;
-
-            box-shadow:
-                0 3px 12px rgba(0, 0, 0, 0.05);
-        }
-
-
-        .category {
-            position: relative;
-
-            width: 25%;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 5px;
-
-            color: #777777;
-
-            cursor: pointer;
-
-            transition: 0.25s ease;
-        }
-
-
-        /* Circular icon */
-
-        .category-icon {
-            width: 48px;
-            height: 48px;
-
-            border-radius: 50%;
-
-            background: #f3f3f3;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-size: 23px;
-
-            transition:
-                background 0.25s ease,
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-
-        .category-name {
-            font-size: 13px;
-
-            line-height: 1.1;
-
-            font-weight: 500;
-        }
-
-
-        /* Active circular button */
-
-        .category.active {
-            color: #171717;
-        }
-
-
-        .category.active .category-icon {
-            background: #171717;
-
-            color: #ffffff;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 6px 15px rgba(0, 0, 0, 0.15);
-        }
-
-
-        .category:active .category-icon {
-            transform: scale(0.94);
-        }
-
-
-        /* ==============================
-           NEW BADGE
-        ============================== */
-
-        .new-badge {
-            position: absolute;
-
-            top: 2px;
-
-            right: calc(50% - 35px);
-
-            background: #ff3867;
-
-            color: #ffffff;
-
-            font-size: 8px;
-
-            font-weight: 700;
-
-            padding: 4px 6px;
-
-            border-radius: 6px;
-
-            line-height: 1;
-
-            z-index: 2;
         }
 
 
@@ -287,7 +154,7 @@
 
 
         /* ==============================
-           OVERLAY
+           IMAGE OVERLAY
         ============================== */
 
         .experience-card::after {
@@ -312,7 +179,7 @@
 
 
         /* ==============================
-           CATEGORY PILL
+           CATEGORY
         ============================== */
 
         .adventure-pill {
@@ -366,11 +233,6 @@
             font-size: 13px;
 
             font-weight: 700;
-        }
-
-
-        .popular span {
-            margin-right: 3px;
         }
 
 
@@ -428,7 +290,7 @@
 
 
         /* ==============================
-           BOTTOM DETAILS
+           CARD DETAILS
         ============================== */
 
         .card-bottom {
@@ -544,45 +406,182 @@
 
 
         /* ==============================
-           SMALL PHONES
+           FIXED BOTTOM FOOTER
+        ============================== */
+
+        .category-nav {
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 0;
+
+            transform: translateX(-50%);
+
+            width: 100%;
+
+            max-width: 620px;
+
+            height: 82px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            border-top: 1px solid #eeeeee;
+
+            box-shadow:
+                0 -5px 20px rgba(0, 0, 0, 0.07);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-around;
+
+            padding: 6px 10px 8px;
+
+            z-index: 1000;
+        }
+
+
+        /* ==============================
+           NAV ITEMS
+        ============================== */
+
+        .category {
+            position: relative;
+
+            width: 25%;
+
+            height: 70px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4px;
+
+            color: #777777;
+
+            cursor: pointer;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        /* ==============================
+           CIRCULAR ICON
+        ============================== */
+
+        .category-icon {
+            width: 43px;
+
+            height: 43px;
+
+            border-radius: 50%;
+
+            background: #f3f3f3;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .category-name {
+            font-size: 11px;
+
+            line-height: 1;
+
+            font-weight: 500;
+        }
+
+
+        /* ==============================
+           ACTIVE BUTTON
+        ============================== */
+
+        .category.active {
+            color: #171717;
+        }
+
+
+        .category.active .category-icon {
+            background: #171717;
+
+            color: #ffffff;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 13px rgba(0, 0, 0, 0.16);
+        }
+
+
+        .category:active .category-icon {
+            transform: scale(0.92);
+        }
+
+
+        /* ==============================
+           NEW BADGE
+        ============================== */
+
+        .new-badge {
+            position: absolute;
+
+            top: 0;
+
+            right: calc(50% - 28px);
+
+            background: #ff3867;
+
+            color: #ffffff;
+
+            font-size: 7px;
+
+            font-weight: 700;
+
+            padding: 3px 5px;
+
+            border-radius: 5px;
+
+            line-height: 1;
+
+            z-index: 2;
+        }
+
+
+        /* ==============================
+           MOBILE
         ============================== */
 
         @media (max-width: 400px) {
 
+            body {
+                padding-bottom: 88px;
+            }
+
+
             .top-banner {
                 height: 70px;
-            }
-
-
-            .category-nav {
-                height: 98px;
-
-                padding:
-                    6px
-                    10px
-                    10px;
-            }
-
-
-            .category-icon {
-                width: 44px;
-                height: 44px;
-
-                font-size: 21px;
-            }
-
-
-            .category-name {
-                font-size: 12px;
-            }
-
-
-            .new-badge {
-                right: calc(50% - 31px);
-
-                top: 1px;
-
-                font-size: 7px;
             }
 
 
@@ -641,6 +640,43 @@
                 font-size: 11px;
             }
 
+
+            .category-nav {
+                height: 78px;
+
+                padding:
+                    4px
+                    7px
+                    6px;
+            }
+
+
+            .category {
+                height: 66px;
+            }
+
+
+            .category-icon {
+                width: 40px;
+                height: 40px;
+
+                font-size: 19px;
+            }
+
+
+            .category-name {
+                font-size: 10px;
+            }
+
+
+            .new-badge {
+                right: calc(50% - 26px);
+
+                top: 0;
+
+                font-size: 6px;
+            }
+
         }
 
     </style>
@@ -649,99 +685,23 @@
 
 <body>
 
+
+    <!-- =====================================
+         MAIN APP
+    ====================================== -->
+
     <div class="app">
 
 
-        <!-- ==============================
-             TOP SPACE
-        =============================== -->
+        <!-- TOP SPACE -->
 
         <div class="top-banner"></div>
 
 
-        <!-- ==============================
-             FOUR CIRCULAR BUTTONS
-        =============================== -->
-
-        <nav class="category-nav">
-
-
-            <!-- HOME -->
-
-            <div class="category">
-
-                <div class="category-icon">
-                    🏠
-                </div>
-
-                <div class="category-name">
-                    Home
-                </div>
-
-            </div>
-
-
-            <!-- EXPERIENCES -->
-
-            <div class="category active">
-
-                <div class="new-badge">
-                    NEW
-                </div>
-
-                <div class="category-icon">
-                    💡
-                </div>
-
-                <div class="category-name">
-                    Experiences
-                </div>
-
-            </div>
-
-
-            <!-- SERVICES -->
-
-            <div class="category">
-
-                <div class="new-badge">
-                    NEW
-                </div>
-
-                <div class="category-icon">
-                    🛎️
-                </div>
-
-                <div class="category-name">
-                    Services
-                </div>
-
-            </div>
-
-
-            <!-- FAVORITES -->
-
-            <div class="category">
-
-                <div class="category-icon">
-                    ❤️
-                </div>
-
-                <div class="category-name">
-                    Favorites
-                </div>
-
-            </div>
-
-
-        </nav>
-
-
-        <!-- ==============================
-             CONTENT
-        =============================== -->
+        <!-- CONTENT -->
 
         <main class="content">
+
 
             <h1 class="page-title">
                 Experiences
@@ -753,9 +713,7 @@
             </p>
 
 
-            <!-- ==========================
-                 CARD 1
-            =========================== -->
+            <!-- CARD 1 -->
 
             <article class="experience-card">
 
@@ -832,9 +790,7 @@
             </article>
 
 
-            <!-- ==========================
-                 CARD 2
-            =========================== -->
+            <!-- CARD 2 -->
 
             <article class="experience-card">
 
@@ -911,9 +867,7 @@
             </article>
 
 
-            <!-- ==========================
-                 DOTS
-            =========================== -->
+            <!-- DOTS -->
 
             <div class="dots">
 
@@ -925,9 +879,88 @@
 
             </div>
 
+
         </main>
 
     </div>
+
+
+    <!-- =====================================
+         FIXED FOOTER NAVIGATION
+    ====================================== -->
+
+    <nav class="category-nav">
+
+
+        <!-- HOME -->
+
+        <div class="category">
+
+            <div class="category-icon">
+                🏠
+            </div>
+
+            <div class="category-name">
+                Home
+            </div>
+
+        </div>
+
+
+        <!-- EXPERIENCES -->
+
+        <div class="category active">
+
+            <div class="new-badge">
+                NEW
+            </div>
+
+            <div class="category-icon">
+                💡
+            </div>
+
+            <div class="category-name">
+                Experiences
+            </div>
+
+        </div>
+
+
+        <!-- SERVICES -->
+
+        <div class="category">
+
+            <div class="new-badge">
+                NEW
+            </div>
+
+            <div class="category-icon">
+                🛎️
+            </div>
+
+            <div class="category-name">
+                Services
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITES -->
+
+        <div class="category">
+
+            <div class="category-icon">
+                ❤️
+            </div>
+
+            <div class="category-name">
+                Favorites
+            </div>
+
+        </div>
+
+
+    </nav>
 
 
     <script>
