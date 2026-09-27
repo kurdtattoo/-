@@ -170,6 +170,16 @@ html{zoom:100%;}
   .product-more-btn{border:0;background:var(--red);color:#fff;border-radius:6px;padding:10px 12px;font-size:12.5px;font-weight:800;cursor:pointer;margin-top:4px;}
   .product-more-btn:hover{background:var(--red-dark);}
   .product-empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:#999;}
+  .availability-section{grid-column:1/-1;}
+  .availability-section-title{margin:8px 0 18px;font-size:24px;font-weight:900;display:flex;align-items:center;gap:10px;}
+  .availability-section-title::before{content:"";width:7px;height:28px;border-radius:5px;background:var(--red);display:inline-block;}
+  .available-section .availability-section-title::before{background:#16a34a;}
+  .unavailable-section{margin-top:16px;padding-top:18px;border-top:2px solid #e5e5e5;}
+  .availability-products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:1100px){.availability-products-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:760px){.availability-products-grid{grid-template-columns:repeat(2,1fr);gap:12px;}.availability-section-title{font-size:20px;}}
+  @media(max-width:480px){.availability-products-grid{grid-template-columns:1fr;}}
+
   .product-modal-v2{position:fixed;inset:0;z-index:180;display:none;align-items:center;justify-content:center;padding:18px;}
   .product-modal-v2.show{display:flex;}
   .product-modal-v2 .modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.66);}
@@ -1273,27 +1283,43 @@ function currentFilteredProducts(){
 function renderProducts(){
   const grid=document.getElementById('productsGrid');
   if(!grid) return;
-  const list=currentFilteredProducts().sort((a,b)=>(a.available===false?1:0)-(b.available===false?1:0));
+  const list=currentFilteredProducts();
   if(!list.length){grid.innerHTML='<div class="product-empty">هیچ بەرهەمێک لەم بەشەدا نییە.</div>';return;}
-  grid.innerHTML=list.map(p=>{
+
+  const availableProducts=list.filter(p=>p.available!==false);
+  const unavailableProducts=list.filter(p=>p.available===false);
+
+  const renderCard=p=>{
     const img=p.images[0]||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="600" height="600"%3E%3Crect width="100%25" height="100%25" fill="%23eeeeee"/%3E%3C/svg%3E';
     const hasSizes=Array.isArray(p.sizes)&&p.sizes.length>0;
     const price=hasSizes?p.sizes[0].price:p.price;
     const currency=hasSizes?p.sizes[0].currency:p.currency;
+    const available=p.available!==false;
     return `<article class="product-card-v2 prod-card" role="button" tabindex="0" onclick="openProductDetail('${escAttr(p.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetail('${escAttr(p.id)}')}" data-category="${escAttr(p.category||'')}" data-categories="${escAttr(p.categories||'')}">
       <div class="product-image"><img src="${escAttr(img)}" alt="${escAttr(p.name||'بەرهەم')}"></div>
       <div class="product-content">
         <div class="product-name">${escHtml(p.name||'بەرهەم')}</div>
         <div class="product-small-desc">${escHtml(p.smallDescription||'')}</div>
-        <div class="product-price">${p.available !== false ? formatPrice(price,currency) : "X"}</div>
-        <div class="product-availability ${p.available !== false ? "available" : "unavailable"}">
+        <div class="product-price">${available ? formatPrice(price,currency) : "X"}</div>
+        <div class="product-availability ${available ? "available" : "unavailable"}">
           <span class="availability-dot" aria-hidden="true"></span>
-          ${p.available !== false ? `بەردەستە | ${Number(p.availableCount ?? p.stock ?? 0)} دانە` : "بەردەست نیە"}
+          ${available ? `بەردەستە | ${Number(p.availableCount ?? p.stock ?? 0)} دانە` : "بەردەست نیە"}
         </div>
       </div>
     </article>`;
-  }).join('');
+  };
+
+  const renderSection=(title,items,type)=>items.length ? `
+    <section class="availability-section ${type}">
+      <h2 class="availability-section-title">${title}</h2>
+      <div class="availability-products-grid">${items.map(renderCard).join('')}</div>
+    </section>` : '';
+
+  grid.innerHTML=
+    renderSection('بەردەست',availableProducts,'available-section') +
+    renderSection('بەردەست نیە',unavailableProducts,'unavailable-section');
 }
+
 function escHtml(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function escAttr(v){return escHtml(v).replace(/'/g,'&#39;');}
 function toEmbedUrl(url){
