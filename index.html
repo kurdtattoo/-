@@ -270,23 +270,6 @@ html{zoom:100%;}
      .nav-item{font-size:11px;padding-inline:10px;}
    }
 
-
-    .discount-price-wrap{
-      display:flex;
-      align-items:baseline;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .discount-original-price{
-      color:#777;
-      text-decoration:line-through;
-      text-decoration-thickness:1px;
-      font-size:.82em;
-      font-weight:600;
-    }
-    .discount-price{
-      font-weight:900;
-    }
 </style>
 
 <style id="main-page-only-zoom">
@@ -1148,6 +1131,24 @@ window.dispatchEvent(new Event("products-firebase-ready"));
 </nav>
 
 
+
+<style id="discount-price-design">
+.discount-price-wrap{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.discount-original-price{
+  text-decoration:line-through;
+  opacity:.5;
+  font-size:.85em;
+}
+.discount-price{
+  font-weight:800;
+}
+</style>
+
 <!-- ============ PRODUCTS ============ -->
 <section class="sec" id="products">
   <div class="container">
@@ -1292,6 +1293,14 @@ function formatPrice(price,currency){
   }
   return formatSinglePrice(price,currency);
 }
+
+function formatProductPrice(product, price, currency){
+  const discount=Number(product?.discountPrice||0);
+  if(discount>0 && Number.isFinite(discount)){
+    return `<span class="discount-price-wrap"><span class="discount-original-price">${formatPrice(price,currency)}</span><span class="discount-price">${formatPrice(discount,currency)}</span></span>`;
+  }
+  return formatPrice(price,currency);
+}
 function productMatchesCategory(p, category){
   if(category==='all') return true;
   const terms=CATEGORY_FILTERS[category]||[];
@@ -1316,11 +1325,6 @@ function renderProducts(){
     const img=p.images[0]||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="600" height="600"%3E%3Crect width="100%25" height="100%25" fill="%23eeeeee"/%3E%3C/svg%3E';
     const hasSizes=Array.isArray(p.sizes)&&p.sizes.length>0;
     const price=hasSizes?p.sizes[0].price:p.price;
-        const discountPrice = Number(product.discountPrice || 0);
-        const displayPrice = discountPrice > 0
-          ? `<div class="discount-price-wrap"><span class="discount-original-price">${displayPrice}</span><span class="discount-price">${money(discountPrice, product.currency || "IQD")}</span></div>`
-          : price;
-
     const currency=hasSizes?p.sizes[0].currency:p.currency;
     const available=p.available!==false;
     return `<article class="product-card-v2 prod-card" role="button" tabindex="0" onclick="openProductDetail('${escAttr(p.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetail('${escAttr(p.id)}')}" data-category="${escAttr(p.category||'')}" data-categories="${escAttr(p.categories||'')}">
@@ -1328,7 +1332,7 @@ function renderProducts(){
       <div class="product-content">
         <div class="product-name">${escHtml(p.name||'بەرهەم')}</div>
         <div class="product-small-desc">${escHtml(p.smallDescription||'')}</div>
-        <div class="product-price">${available ? formatPrice(price,currency) : "X"}</div>
+        <div class="product-price">${available ? formatProductPrice(p,price,currency) : "X"}</div>
         <div class="product-availability ${available ? "available" : "unavailable"}">
           <span class="availability-dot" aria-hidden="true"></span>
           ${available ? `بەردەستە | ${Number(p.availableCount ?? p.stock ?? 0)} دانە` : "بەردەست نیە"}
@@ -1414,7 +1418,7 @@ function updateDetailPrice(){
   if(!activeDetailProduct) return;
   const price=activeDetailSize?activeDetailSize.price:activeDetailProduct.price;
   const currency=activeDetailSize?activeDetailSize.currency:activeDetailProduct.currency;
-  document.getElementById('productDetailPrice').textContent=activeDetailProduct.available!==false ? formatPrice(price,currency) : "X";
+  document.getElementById('productDetailPrice').innerHTML=activeDetailProduct.available!==false ? formatProductPrice(activeDetailProduct,price,currency) : "X";
   const availability=document.getElementById('productDetailAvailability');
   if(availability){
     const available=activeDetailProduct.available!==false;
