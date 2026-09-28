@@ -153,6 +153,120 @@ html{zoom:100%;}
   #products{padding:8px 0 44px;}
   .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
   .product-card-v2{background:#fff;border:2px solid #000;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;min-width:0;}
+/* Premium product motion */
+.product-card-v2{
+  position:relative;
+  isolation:isolate;
+  transform:translate3d(0,0,0);
+  box-shadow:0 1px 0 rgba(0,0,0,.04);
+  transition:
+    transform .42s cubic-bezier(.22,1,.36,1),
+    box-shadow .42s cubic-bezier(.22,1,.36,1),
+    border-color .3s ease;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+.product-card-v2::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  opacity:0;
+  background:linear-gradient(
+    120deg,
+    transparent 25%,
+    rgba(255,255,255,.42) 48%,
+    transparent 68%
+  );
+  transform:translateX(-120%);
+  transition:opacity .2s ease, transform .8s cubic-bezier(.22,1,.36,1);
+  z-index:3;
+}
+.product-card-v2:hover{
+  transform:translate3d(0,-7px,0) scale(1.008);
+  box-shadow:0 16px 34px rgba(0,0,0,.12);
+  border-color:#111;
+}
+.product-card-v2:hover::after{
+  opacity:1;
+  transform:translateX(120%);
+}
+.product-card-v2 .product-image{
+  position:relative;
+  overflow:hidden;
+}
+.product-card-v2 .product-image::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 45%);
+  opacity:0;
+  transition:opacity .35s ease;
+}
+.product-card-v2 .product-image img{
+  transition:transform .65s cubic-bezier(.22,1,.36,1), filter .45s ease;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+.product-card-v2:hover .product-image::before{opacity:1;}
+.product-card-v2:hover .product-image img{
+  transform:scale(1.055);
+  filter:saturate(1.04) contrast(1.01);
+}
+.product-card-v2 .product-name,
+.product-card-v2 .product-price,
+.product-card-v2 .product-availability{
+  transition:transform .35s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+}
+.product-card-v2:hover .product-name{transform:translateY(-1px);}
+.product-card-v2:hover .product-price{transform:translateY(-2px);}
+.product-card-v2:hover .product-availability{transform:translateY(-1px);}
+
+.products-grid .prod-card{
+  animation:premiumProductIn .58s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:calc(var(--card-index, 0) * 55ms);
+}
+.products-grid.products-is-changing .prod-card{
+  animation:none;
+}
+.availability-divider{
+  animation:premiumDividerIn .42s ease both;
+}
+
+@keyframes premiumProductIn{
+  from{
+    opacity:0;
+    transform:translate3d(0,18px,0) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1);
+  }
+}
+@keyframes premiumDividerIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .product-card-v2,
+  .product-card-v2::after,
+  .product-card-v2 .product-image img,
+  .product-card-v2 .product-image::before,
+  .product-card-v2 .product-name,
+  .product-card-v2 .product-price,
+  .product-card-v2 .product-availability{
+    transition:none !important;
+    animation:none !important;
+  }
+  .product-card-v2:hover{
+    transform:none;
+  }
+}
+
   .product-card-v2:hover{box-shadow:0 8px 22px rgba(0,0,0,.09);transform:translateY(-3px);}
   .product-card-v2 .product-image{aspect-ratio:1/1;background:var(--gray-bg);overflow:hidden;}
   .product-card-v2 .product-image img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -1316,18 +1430,20 @@ function renderProducts(){
   const grid=document.getElementById('productsGrid');
   if(!grid) return;
   const list=currentFilteredProducts();
-  if(!list.length){grid.innerHTML='<div class="product-empty">هیچ بەرهەمێک لەم بەشەدا نییە.</div>';return;}
+  if(!list.length){grid.classList.remove('products-is-changing');grid.innerHTML='<div class="product-empty">هیچ بەرهەمێک لەم بەشەدا نییە.</div>';return;}
 
   const availableProducts=list.filter(p=>p.available!==false);
   const unavailableProducts=list.filter(p=>p.available===false);
 
+  let cardIndex=0;
   const renderCard=p=>{
+    const currentCardIndex=cardIndex++;
     const img=p.images[0]||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="600" height="600"%3E%3Crect width="100%25" height="100%25" fill="%23eeeeee"/%3E%3C/svg%3E';
     const hasSizes=Array.isArray(p.sizes)&&p.sizes.length>0;
     const price=hasSizes?p.sizes[0].price:p.price;
     const currency=hasSizes?p.sizes[0].currency:p.currency;
     const available=p.available!==false;
-    return `<article class="product-card-v2 prod-card" role="button" tabindex="0" onclick="openProductDetail('${escAttr(p.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetail('${escAttr(p.id)}')}" data-category="${escAttr(p.category||'')}" data-categories="${escAttr(p.categories||'')}">
+    return `<article class="product-card-v2 prod-card" style="--card-index:${currentCardIndex}" role="button" tabindex="0" onclick="openProductDetail('${escAttr(p.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetail('${escAttr(p.id)}')}" data-category="${escAttr(p.category||'')}" data-categories="${escAttr(p.categories||'')}">
       <div class="product-image"><img src="${escAttr(img)}" alt="${escAttr(p.name||'بەرهەم')}"></div>
       <div class="product-content">
         <div class="product-name">${escHtml(p.name||'بەرهەم')}</div>
@@ -1343,9 +1459,11 @@ function renderProducts(){
 
   const divider=(title,type)=>`<div class="availability-divider ${type}" aria-hidden="true"><span>${title}</span></div>`;
 
+  grid.classList.add('products-is-changing');
   grid.innerHTML=
     (availableProducts.length ? divider('بەردەستە','available-divider') + availableProducts.map(renderCard).join('') : '') +
     (unavailableProducts.length ? divider('بەردەست نیە','unavailable-divider') + unavailableProducts.map(renderCard).join('') : '');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>grid.classList.remove('products-is-changing')));
 }
 
 function escHtml(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
