@@ -152,65 +152,20 @@ html{zoom:100%;}
   /* ---------- PRODUCTS V2 ---------- */
   #products{padding:8px 0 44px;}
   
-.products-grid{
-  display:flex;
-  gap:18px;
-  overflow:hidden;
-  position:relative;
-  width:100%;
-  padding:6px 0 18px;
-  direction:rtl;
-}
-.products-grid .product-card-v2{
-  flex:0 0 calc((100% - 54px)/4);
-  min-width:0;
-}
-.products-grid.auto-slider{
-  justify-content:flex-start;
-}
-.products-grid.auto-slider .auto-track{
-  display:flex;
-  flex:0 0 auto;
-  gap:18px;
-  width:max-content;
-  animation:productsRTL 28s linear infinite;
-  will-change:transform;
-}
-.products-grid.auto-slider .auto-track:hover{
-  animation-play-state:paused;
-}
-.products-grid.auto-slider .product-card-v2{
-  flex:0 0 calc((min(100vw, 1200px) - 54px)/4);
-}
-@keyframes productsRTL{
-  from{transform:translate3d(0,0,0);}
-  to{transform:translate3d(calc(50% + 9px),0,0);}
-}
-@media (max-width:1100px){
-  .products-grid .product-card-v2,
-  .products-grid.auto-slider .product-card-v2{
-    flex-basis:calc((100vw - 72px)/3);
-  }
-}
-@media (max-width:760px){
-  .products-grid{gap:13px;padding-bottom:14px;}
-  .products-grid.auto-slider .auto-track{gap:13px;}
-  .products-grid .product-card-v2,
-  .products-grid.auto-slider .product-card-v2{
-    flex-basis:calc((100vw - 39px)/2);
-  }
-}
-@media (max-width:480px){
-  .products-grid .product-card-v2,
-  .products-grid.auto-slider .product-card-v2{
-    flex-basis:82vw;
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  .products-grid.auto-slider .auto-track{
-    animation:none !important;
-  }
-}
+.products-grid{display:flex;flex-direction:column;gap:30px;overflow:hidden;width:100%;padding:6px 0 18px;direction:rtl;}
+.product-slider-row{position:relative;width:100%;overflow:hidden;direction:rtl;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y;}
+.product-slider-row.is-holding{cursor:grabbing;}
+.product-slider-track{display:flex;width:max-content;gap:18px;direction:rtl;animation:productSlowRTL 75s linear infinite;will-change:transform;}
+.product-slider-row:hover .product-slider-track{animation-play-state:paused;}
+.product-slider-row.is-holding .product-slider-track{animation-play-state:paused!important;}
+.product-slider-track .product-card-v2{flex:0 0 280px;width:280px;min-width:280px;}
+.product-slider-heading{font-size:15px;font-weight:900;margin:0 0 10px;padding:0 4px;}
+.product-slider-row[data-slider-row="unavailable"] .product-slider-heading{color:#777;}
+@keyframes productSlowRTL{from{transform:translate3d(0,0,0);}to{transform:translate3d(50%,0,0);}}
+@media (max-width:1100px){.product-slider-track .product-card-v2{flex-basis:260px;width:260px;min-width:260px;}}
+@media (max-width:760px){.products-grid{gap:24px}.product-slider-track{gap:13px}.product-slider-track .product-card-v2{flex-basis:230px;width:230px;min-width:230px;}}
+@media (max-width:480px){.product-slider-track .product-card-v2{flex-basis:82vw;width:82vw;min-width:82vw;}}
+@media (prefers-reduced-motion:reduce){.product-slider-track{animation:none!important;}}
 
   .product-card-v2{background:#fff;border:2px solid #000;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;min-width:0;}
   .product-card-v2:hover{box-shadow:0 8px 22px rgba(0,0,0,.09);transform:translateY(-3px);}
@@ -1212,7 +1167,7 @@ window.dispatchEvent(new Event("products-firebase-ready"));
 <!-- ============ PRODUCTS ============ -->
 <section class="sec" id="products">
   <div class="container">
-    <div class="products-grid auto-slider" id="productsGrid"><div class="auto-track"></div>
+    <div class="products-grid" id="productsGrid"></div>
   </div>
 </section>
 
@@ -1376,7 +1331,15 @@ function renderProducts(){
   const grid=document.getElementById('productsGrid');
   if(!grid) return;
   const list=currentFilteredProducts();
-  if(!list.length){grid.innerHTML='<div class="product-empty">هیچ بەرهەمێک لەم بەشەدا نییە.</div>';return;}
+  if(!list.length){grid.innerHTML=
+    (availableProducts.length ? `<section class="product-slider-row" data-slider-row="available" aria-label="Available products">
+      <div class="product-slider-heading">بەردەستە</div>
+      <div class="product-slider-track">${availableProducts.map(renderCard).join('')}${availableProducts.map(renderCard).join('')}</div>
+    </section>` : '') +
+    (unavailableProducts.length ? `<section class="product-slider-row" data-slider-row="unavailable" aria-label="Unavailable products">
+      <div class="product-slider-heading">بەردەست نیە</div>
+      <div class="product-slider-track">${unavailableProducts.map(renderCard).join('')}${unavailableProducts.map(renderCard).join('')}</div>
+    </section>` : '');return;}
 
   const availableProducts=list.filter(p=>p.available!==false);
   const unavailableProducts=list.filter(p=>p.available===false);
@@ -1403,28 +1366,9 @@ function renderProducts(){
 
   const divider=(title,type)=>`<div class="availability-divider ${type}" aria-hidden="true"><span>${title}</span></div>`;
 
-  const availableMarkup=availableProducts.length
-    ? divider('بەردەستە','available-divider') + availableProducts.map(renderCard).join('')
-    : '';
-  const unavailableMarkup=unavailableProducts.length
-    ? divider('بەردەست نیە','unavailable-divider') + unavailableProducts.map(renderCard).join('')
-    : '';
-
-  const renderAutoRow=(markup)=>{
-    if(!markup) return '';
-    return `<div class="auto-track">${markup}</div>`;
-  };
-
-  // Each category gets its own continuously moving row.
   grid.innerHTML=
-    renderAutoRow(availableMarkup) +
-    renderAutoRow(unavailableMarkup);
-
-  grid.querySelectorAll('.auto-track').forEach((track,index)=>{
-    // Duplicate the row contents so the animation can loop without a jump.
-    track.innerHTML=track.innerHTML + track.innerHTML;
-    track.style.animationDuration=(index===0 ? '30s' : '34s');
-  });
+    (availableProducts.length ? divider('بەردەستە','available-divider') + availableProducts.map(renderCard).join('') : '') +
+    (unavailableProducts.length ? divider('بەردەست نیە','unavailable-divider') + unavailableProducts.map(renderCard).join('') : '');
 }
 
 function escHtml(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
@@ -1553,6 +1497,8 @@ const CATEGORY_FILTERS = {
   warawela: ['warawela','هی تر']
 };
 
+
+  setupProductSliderControls();
 function filterProducts(category){
   document.querySelectorAll('.category-filter').forEach(item=>{
     item.classList.toggle('active', item.dataset.filter === category);
@@ -1637,6 +1583,51 @@ function closeContactChooser(event){
   if(el) el.classList.remove('show');
 }
 
+
+<script>
+function setupProductSliderControls(){
+  document.querySelectorAll('.product-slider-row').forEach(row=>{
+    if(row.dataset.sliderReady==='1') return;
+    row.dataset.sliderReady='1';
+
+    let pointerId=null,startX=0,startScroll=0,dragging=false;
+
+    row.addEventListener('pointerdown',e=>{
+      pointerId=e.pointerId;
+      startX=e.clientX;
+      startScroll=row.scrollLeft;
+      row.classList.add('is-holding');
+      try{row.setPointerCapture(pointerId);}catch(_){}
+    });
+
+    row.addEventListener('pointermove',e=>{
+      if(pointerId===null || e.pointerId!==pointerId) return;
+      const dx=e.clientX-startX;
+      if(Math.abs(dx)>4){
+        dragging=true;
+        row.scrollLeft=startScroll-dx;
+      }
+    });
+
+    const release=()=>{
+      row.classList.remove('is-holding');
+      pointerId=null;
+      setTimeout(()=>dragging=false,0);
+    };
+
+    row.addEventListener('pointerup',release);
+    row.addEventListener('pointercancel',release);
+    row.addEventListener('lostpointercapture',release);
+
+    row.addEventListener('click',e=>{
+      if(dragging){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },true);
+  });
+}
+</script>
 </script>
 
 
